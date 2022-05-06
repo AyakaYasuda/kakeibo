@@ -21,7 +21,7 @@ const MonthlySpendingList = () => {
       <div className="section-container center-col">
         <p>No spending yet... Create new spending?</p>
         <div className="spacer-sm" />
-        <Button to="/spending/edit">Create</Button>
+        <Button to="/spending/new">Create</Button>
       </div>
     );
   }
