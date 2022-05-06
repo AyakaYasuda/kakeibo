@@ -1,5 +1,5 @@
 const initialState = {
-  spending: { list: [] },
+  spending: { spendingList: [] },
   users: {
     isLoggedIn: false,
     uid: "",

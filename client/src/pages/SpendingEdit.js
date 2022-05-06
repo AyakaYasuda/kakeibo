@@ -2,8 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { createSpendingAction } from "../reducks/spending/actions";
+import { useNavigate } from "react-router-dom";
 
-import Button from "../components/Button";
+import Button from "../components/UI/Button";
 import classes from "./SpendingEdit.module.scss";
 
 const spendingSchema = yup.object().shape({
@@ -22,9 +25,13 @@ const SpendingEdit = () => {
   } = useForm({
     resolver: yupResolver(spendingSchema),
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const spendingSubmitHandler = data => {
-    console.log(data);
+    dispatch(createSpendingAction(data));
+    clearFormHandler();
+    navigate("/spending");
   };
 
   const clearFormHandler = () => {
