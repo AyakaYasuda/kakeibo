@@ -1,0 +1,35 @@
+@import "../mixin.scss";
+
+.btn {
+  font: inherit;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  background-color: $accent-color;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+
+  &:hover,
+  &:active {
+    opacity: 0.8;
+  }
+
+  &:disabled,
+  &:hover:disabled,
+  &:active:disabled {
+    background-color: #ccc;
+    color: #979797;
+    cursor: not-allowed;
+  }
+
+  &-sm {
+    font-size: 1.2rem;
+  }
+
+  &-lg {
+    font-size: 2rem;
+  }
+}
