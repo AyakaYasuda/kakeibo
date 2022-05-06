@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteSpendingAction } from "../../reducks/spending/actions";
+import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
@@ -22,10 +23,12 @@ const SpendingCard = ({ data }) => {
         <p>Category</p>
         <h2>{data.category}</h2>
         <div className={classes["card-options"]}>
-          <FontAwesomeIcon
-            className={classes["icon-edit"]}
-            icon={faPenToSquare}
-          />
+          <Link to={`/spending/edit/${spendingId}`}>
+            <FontAwesomeIcon
+              icon={faPenToSquare}
+              className={classes["icon-edit"]}
+            />
+          </Link>
           <FontAwesomeIcon
             className={classes["icon-delete"]}
             icon={faTrash}

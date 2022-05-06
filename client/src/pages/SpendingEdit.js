@@ -1,128 +1,43 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useDispatch } from "react-redux";
-import { createSpendingAction } from "../reducks/spending/actions";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-import Button from "../components/UI/Button";
+import SpendingForm from "../components/spending/SpendingForm";
+
 import classes from "./SpendingEdit.module.scss";
 
-const spendingSchema = yup.object().shape({
-  category: yup.string().required(),
-  title: yup.string().required(),
-  amount: yup.number().positive().required(),
-  memo: yup.string().required(),
-});
-
 const SpendingEdit = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(spendingSchema),
-  });
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const spendingId = useParams().id;
+  const spendingList = useSelector(state => state.spending.spendingList);
 
-  const spendingSubmitHandler = data => {
-    const spending = {
-      id: uuidv4(),
-      category: data.category,
-      title: data.title,
-      amount: data.amount,
-      memo: data.memo,
-    };
-    dispatch(createSpendingAction(spending));
-    clearFormHandler();
-    navigate("/spending");
-  };
+  const [category, setCategory] = useState();
+  const [title, setTitle] = useState();
+  const [amount, setAmount] = useState();
+  const [memo, setMemo] = useState();
 
-  const clearFormHandler = () => {
-    reset();
-    navigate("/spending")
+  useEffect(() => {
+    const identifiedSpending = spendingList.find(
+      spending => spending.id === spendingId
+    );
+    setCategory(identifiedSpending.category);
+    setTitle(identifiedSpending.title);
+    setAmount(identifiedSpending.amount);
+    setMemo(identifiedSpending.memo);
+  }, []);
+
+  const preloadedValues = {
+    category: category,
+    title: title,
+    amount: amount,
+    memo: memo,
   };
 
   return (
     <>
       <div className="section-container">
-        <h2 className={classes.title}>What did you spend money on?</h2>
+        <h2 className={classes.title}>Update your spending?</h2>
+        <SpendingForm preloadedValues={preloadedValues} />
         <div className="spacer-sm" />
-        <form
-          className={classes.form}
-          onSubmit={handleSubmit(spendingSubmitHandler)}
-        >
-          <label className={classes["form-label"]} htmlFor="category">
-            Category
-          </label>
-          <select
-            className={classes["form-input"]}
-            name="category"
-            id="category"
-            defaultValue={"default"}
-            {...register("category")}
-          >
-            <option value={"default"} disabled hidden>
-              Select category
-            </option>
-            <option value="entertainment">Entertainment</option>
-            <option value="shopping">Shopping</option>
-            <option value="food-and-dining">Food & Dining</option>
-            <option value="health-and-fitness">Health & Fitness</option>
-            <option value="auto-and-transport">Auto & Transport</option>
-            <option value="personal-care">Personal Care</option>
-            <option value="utilities">Utilities</option>
-            <option value="travel">Travel</option>
-            <option value="education">Education</option>
-            <option value="kids">Kids</option>
-            <option value="investments">Investments</option>
-            <option value="others">Others</option>
-          </select>
-          <p>{errors.category?.message}</p>
-          <label className={classes["form-label"]} htmlFor="title">
-            Title
-          </label>
-          <input
-            className={classes["form-input"]}
-            type="text"
-            name="title"
-            id="title"
-            {...register("title")}
-          />
-          <p>{errors.title?.message}</p>
-          <label className={classes["form-label"]} htmlFor="amount">
-            Amount
-          </label>
-          <input
-            className={classes["form-input"]}
-            type="number"
-            step="0.01"
-            name="amount"
-            id="amount"
-            {...register("amount")}
-          />
-          <p>{errors.amount?.message}</p>
-          <label className={classes["form-label"]} htmlFor="memo">
-            Memo
-          </label>
-          <textarea
-            className={classes["form-input"]}
-            name="memo"
-            rows="5"
-            id="memo"
-            {...register("memo")}
-          />
-          <p>{errors.memo?.message}</p>
-          <div className="spacer-sm" />
-          <div className="center-row">
-            <Button onClick={clearFormHandler}>Cancel</Button>
-            <Button type="submit">Submit</Button>
-          </div>
-        </form>
       </div>
     </>
   );

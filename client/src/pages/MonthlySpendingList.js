@@ -32,7 +32,7 @@ const MonthlySpendingList = () => {
         loadedSpending.map(spending => (
           <SpendingCard data={spending} key={spending.id} />
         ))}
-      <Link to={"/spending/edit"}>
+      <Link to={"/spending/new"}>
         <FontAwesomeIcon className={classes["add-btn"]} icon={faCirclePlus} />
       </Link>
     </div>

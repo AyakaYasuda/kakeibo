@@ -2,7 +2,15 @@
 
 .header {
   width: 100%;
-  color: white;
   background-color: $primary-color;
   padding: 1rem;
+
+  a {
+    color: white;
+    font-size: 2rem;
+  }
+
+  a:hover {
+    opacity: 0.9;
+  }
 }
