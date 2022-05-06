@@ -1,24 +1,56 @@
 import React from "react";
-import classes from "./SpendingEdit.module.scss";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 import Button from "../components/Button";
+import classes from "./SpendingEdit.module.scss";
+
+const spendingSchema = yup.object().shape({
+  category: yup.string().required(),
+  title: yup.string().required(),
+  amount: yup.number().positive().required(),
+  memo: yup.string().required(),
+});
 
 const SpendingEdit = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(spendingSchema),
+  });
+
+  const spendingSubmitHandler = data => {
+    console.log(data);
+  };
+
+  const clearFormHandler = () => {
+    reset();
+  };
+
   return (
     <>
       <div className="section-container">
         <h3 className={classes.title}>What did you spend money on?</h3>
         <div className="spacer-sm" />
-        <form className={classes.form}>
-          <label className={classes["form-label"]} htmlFor="categories">
+        <form
+          className={classes.form}
+          onSubmit={handleSubmit(spendingSubmitHandler)}
+        >
+          <label className={classes["form-label"]} htmlFor="category">
             Category
           </label>
           <select
             className={classes["form-input"]}
-            name="categories"
-            id="categories"
+            name="category"
+            id="category"
+            defaultValue={"default"}
+            {...register("category")}
           >
-            <option defaultValue="" disabled hidden>
+            <option value={"default"} disabled hidden>
               Select category
             </option>
             <option value="entertainment">Entertainment</option>
@@ -34,6 +66,7 @@ const SpendingEdit = () => {
             <option value="investments">Investments</option>
             <option value="others">Others</option>
           </select>
+          <p>{errors.category?.message}</p>
           <label className={classes["form-label"]} htmlFor="title">
             Title
           </label>
@@ -42,17 +75,22 @@ const SpendingEdit = () => {
             type="text"
             name="title"
             id="title"
+            {...register("title")}
           />
-          <label className={classes["form-label"]} htmlFor="title">
+          <p>{errors.title?.message}</p>
+          <label className={classes["form-label"]} htmlFor="amount">
             Amount
           </label>
           <input
             className={classes["form-input"]}
-            type="text"
+            type="number"
+            step="0.01"
             name="amount"
             id="amount"
+            {...register("amount")}
           />
-          <label className={classes["form-label"]} htmlFor="title">
+          <p>{errors.amount?.message}</p>
+          <label className={classes["form-label"]} htmlFor="memo">
             Memo
           </label>
           <textarea
@@ -60,9 +98,14 @@ const SpendingEdit = () => {
             name="memo"
             rows="5"
             id="memo"
+            {...register("memo")}
           />
+          <p>{errors.memo?.message}</p>
           <div className="spacer-sm" />
-          <Button type="submit">Submit</Button>
+          <div className="center-row">
+            <Button onClick={clearFormHandler}>Cancel</Button>
+            <Button type="submit">Submit</Button>
+          </div>
         </form>
       </div>
     </>

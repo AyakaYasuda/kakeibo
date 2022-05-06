@@ -11,7 +11,6 @@ const Button = props => {
     "btn-sm": props.size === "small",
     "btn-lg": props.size === "large",
   });
-  console.log(btnClass);
 
   if (props.href) {
     return (
