@@ -8,6 +8,13 @@ export const SpendingReducer = (state = initialState.spending, action) => {
       return {
         spendingList: [...state.spendingList, action.payload],
       };
+
+    case Actions.DELETE_SPENDING:
+      return {
+        spendingList: state.spendingList.filter(
+          spending => spending.id !== action.payload
+        ),
+      };
     default:
       return state;
   }

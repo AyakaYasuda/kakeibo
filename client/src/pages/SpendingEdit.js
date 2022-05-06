@@ -39,10 +39,12 @@ const SpendingEdit = () => {
     };
     dispatch(createSpendingAction(spending));
     clearFormHandler();
+    navigate("/spending");
   };
 
   const clearFormHandler = () => {
     reset();
+    navigate("/spending")
   };
 
   return (

@@ -1,30 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
 import SpendingCard from "../components/spending/SpendingCard";
 import Button from "../components/UI/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import classes from "./MonthlySpendingList.module.scss";
 
-const DUMMY_SPENDING = [
-  {
-    id: "s1",
-    category: "Shopping",
-    title: "boots",
-    amount: 121.89,
-    memo: "A treat for myself",
-  },
-  {
-    id: "s2",
-    category: "Food & Dining",
-    title: "korean chicken",
-    amount: 15.6,
-    memo: "UberEats",
-  },
-];
-
 const MonthlySpendingList = () => {
+  const [loadedSpending, setLoadedSpending] = useState();
   const spending = useSelector(state => state.spending.spendingList);
 
-  const loadedSpending = DUMMY_SPENDING.concat(spending);
+  useEffect(() => {
+    setLoadedSpending(spending);
+  }, [spending]);
 
   if (!loadedSpending || loadedSpending.length === 0) {
     return (
@@ -42,6 +32,9 @@ const MonthlySpendingList = () => {
         loadedSpending.map(spending => (
           <SpendingCard data={spending} key={spending.id} />
         ))}
+      <Link to={"/spending/edit"}>
+        <FontAwesomeIcon className={classes["add-btn"]} icon={faCirclePlus} />
+      </Link>
     </div>
   );
 };

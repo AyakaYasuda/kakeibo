@@ -11,6 +11,7 @@
   overflow: hidden;
   width: 70rem;
   min-height: 16rem;
+  text-align: start;
 
   &-category {
     background-color: $primary-color;
@@ -83,6 +84,7 @@
   .card {
     overflow: visible;
     margin: 2rem auto 3rem;
+
     &-btn {
       right: -0.5rem;
       bottom: -1rem;
@@ -94,6 +96,7 @@
   .card {
     overflow: hidden;
     margin: 2rem auto;
+
     &-btn {
       right: 3rem;
       bottom: 3rem;
@@ -106,6 +109,10 @@
     overflow: hidden;
     margin: 2rem auto;
     flex-direction: row;
+
+    &-category {
+      border-top-right-radius: 0;
+    }
 
     &-options {
       left: 2rem;
