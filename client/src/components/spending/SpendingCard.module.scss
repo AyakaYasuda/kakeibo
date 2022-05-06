@@ -1,0 +1,128 @@
+@import "../../mixin.scss";
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin: 2rem auto;
+  overflow: hidden;
+  width: 70rem;
+  min-height: 16rem;
+  text-align: start;
+
+  &-category {
+    background-color: $primary-color;
+    color: #fff;
+    padding: 2rem;
+    min-width: 23rem;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  &-category p {
+    opacity: 0.6;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  &-category h2 {
+    letter-spacing: 1px;
+    margin: 1rem 0;
+  }
+
+  &-options {
+    position: absolute;
+    right: 2rem;
+    bottom: 3rem;
+
+    a {
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      color: #fff;
+    }
+  }
+
+  &-info {
+    padding: 2rem;
+    width: 100%;
+    position: relative;
+  }
+
+  &-info p {
+    color: $primary-color;
+    margin: 1rem 0;
+  }
+
+  &-btn {
+    background-color: $accent-color;
+    color: #fff;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+    padding: 1.2rem 2.5rem;
+    position: absolute;
+    right: 3rem;
+    bottom: 3rem;
+  }
+
+  .icon-delete,
+  .icon-edit {
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    opacity: 0.6;
+  }
+
+  .icon-delete:hover,
+  .icon-edit:hover {
+    opacity: 1;
+  }
+}
+
+@include media-xs {
+  .card {
+    overflow: visible;
+    margin: 2rem auto 3rem;
+
+    &-btn {
+      right: -0.5rem;
+      bottom: -1rem;
+    }
+  }
+}
+
+@include media-sm {
+  .card {
+    overflow: hidden;
+    margin: 2rem auto;
+
+    &-btn {
+      right: 3rem;
+      bottom: 3rem;
+    }
+  }
+}
+
+@include media-md {
+  .card {
+    overflow: hidden;
+    margin: 2rem auto;
+    flex-direction: row;
+
+    &-category {
+      border-top-right-radius: 0;
+    }
+
+    &-options {
+      left: 2rem;
+      bottom: 3rem;
+    }
+  }
+}

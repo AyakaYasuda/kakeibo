@@ -1,0 +1,16 @@
+@import "../../mixin.scss";
+
+.header {
+  width: 100%;
+  background-color: $primary-color;
+  padding: 1rem;
+
+  a {
+    color: white;
+    font-size: 2rem;
+  }
+
+  a:hover {
+    opacity: 0.9;
+  }
+}

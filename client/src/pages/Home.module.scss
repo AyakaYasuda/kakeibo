@@ -1,0 +1,18 @@
+@import "../mixin.scss";
+
+a {
+  text-decoration: none;
+  font-size: 1.6rem;
+  color: $primary-color;
+}
+
+a:hover {
+  color: $secondary-color;
+}
+
+.icon-list,
+.icon-add {
+  font-size: 1.6rem;
+  color: $primary-color;
+  margin-right: 1rem;
+}
