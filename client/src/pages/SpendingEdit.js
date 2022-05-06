@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { createSpendingAction } from "../reducks/spending/actions";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 import Button from "../components/UI/Button";
 import classes from "./SpendingEdit.module.scss";
@@ -29,9 +30,15 @@ const SpendingEdit = () => {
   const navigate = useNavigate();
 
   const spendingSubmitHandler = data => {
-    dispatch(createSpendingAction(data));
+    const spending = {
+      id: uuidv4(),
+      category: data.category,
+      title: data.title,
+      amount: data.amount,
+      memo: data.memo,
+    };
+    dispatch(createSpendingAction(spending));
     clearFormHandler();
-    navigate("/spending");
   };
 
   const clearFormHandler = () => {
@@ -41,7 +48,7 @@ const SpendingEdit = () => {
   return (
     <>
       <div className="section-container">
-        <h3 className={classes.title}>What did you spend money on?</h3>
+        <h2 className={classes.title}>What did you spend money on?</h2>
         <div className="spacer-sm" />
         <form
           className={classes.form}

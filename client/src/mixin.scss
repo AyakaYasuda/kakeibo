@@ -2,6 +2,16 @@ $primary-color: #1c4d7b;
 $secondary-color: #598ec0;
 $accent-color: #c62e2e;
 
+@mixin media-xs {
+  @media screen and (min-width: 320px) {
+    @content;
+  }
+}
+@mixin media-sm {
+  @media screen and (min-width: 400px) {
+    @content;
+  }
+}
 @mixin media-md {
   @media screen and (min-width: 768px) {
     @content;

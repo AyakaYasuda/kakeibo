@@ -20,21 +20,33 @@ main {
 h1 {
   font-weight: 800;
   font-size: 3rem;
+
+  @include media-xs {
+    font-size: 2.5rem;
+  }
 }
 
 h2 {
   font-weight: 600;
   font-size: 2.5rem;
+
+  @include media-xs {
+    font-size: 2rem;
+  }
 }
 
 h3 {
   font-weight: 400;
   font-size: 2rem;
+
+  @include media-xs {
+    font-size: 1.5rem;
+  }
 }
 
 p {
   font-weight: 400;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 a {
