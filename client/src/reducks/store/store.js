@@ -2,6 +2,7 @@ import {
   legacy_createStore as reduxCreateStore,
   combineReducers,
   applyMiddleware,
+  compose,
 } from "redux";
 import thunk from "redux-thunk";
 
@@ -12,7 +13,7 @@ const store = reduxCreateStore(
     spending: SpendingReducer,
     // users: UsersReducer,
   }),
-  applyMiddleware(thunk)
+  applyMiddleware(thunk),
 );
 
 export default store;

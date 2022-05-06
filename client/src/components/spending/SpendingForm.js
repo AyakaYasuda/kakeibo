@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { createSpendingAction } from "../../reducks/spending/actions";
+import {
+  createSpendingAction,
+  updateSpendingAction,
+} from "../../reducks/spending/actions";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
@@ -17,20 +20,26 @@ const spendingSchema = yup.object().shape({
   memo: yup.string().required(),
 });
 
-const SpendingForm = ({ preloadedValues }) => {
+const SpendingForm = ({ preloadedValues, type, spendingId }) => {
+  console.log(preloadedValues);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(preloadedValues);
-
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(spendingSchema),
-    defaultValues: preloadedValues,
   });
+
+  useEffect(() => {
+    setValue("category", preloadedValues?.category);
+    setValue("title", preloadedValues?.title);
+    setValue("amount", preloadedValues?.amount);
+    setValue("memo", preloadedValues?.memo);
+  }, [preloadedValues]);
 
   const spendingSubmitHandler = data => {
     const spending = {
@@ -45,17 +54,30 @@ const SpendingForm = ({ preloadedValues }) => {
     navigate("/spending");
   };
 
+  const spendingUpdateHandler = data => {
+    const spending = {
+      id: spendingId,
+      category: data.category,
+      title: data.title,
+      amount: data.amount,
+      memo: data.memo,
+    };
+    dispatch(updateSpendingAction(spendingId, spending));
+    clearFormHandler();
+    navigate("/spending");
+  };
+
   const clearFormHandler = () => {
     reset();
     navigate("/spending");
   };
 
+  const handler =
+    type === "create" ? spendingSubmitHandler : spendingUpdateHandler;
+
   return (
     <>
-      <form
-        className={classes.form}
-        onSubmit={handleSubmit(spendingSubmitHandler)}
-      >
+      <form className={classes.form} onSubmit={handleSubmit(handler)}>
         <label className={classes["form-label"]} htmlFor="category">
           Category
         </label>

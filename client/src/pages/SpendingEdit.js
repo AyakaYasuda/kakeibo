@@ -36,8 +36,12 @@ const SpendingEdit = () => {
     <>
       <div className="section-container">
         <h2 className={classes.title}>Update your spending?</h2>
-        <SpendingForm preloadedValues={preloadedValues} />
         <div className="spacer-sm" />
+        <SpendingForm
+          preloadedValues={preloadedValues}
+          type="update"
+          spendingId={spendingId}
+        />
       </div>
     </>
   );

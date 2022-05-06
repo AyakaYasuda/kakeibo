@@ -13,3 +13,15 @@ export const deleteSpendingAction = spendingId => {
     payload: spendingId,
   };
 };
+
+export const UPDATE_SPENDING = "UPDATE_SPENDING";
+export const updateSpendingAction = (spendingId, spending) => {
+  console.log(spendingId)
+  return {
+    type: "UPDATE_SPENDING",
+    payload: {
+      id: spendingId,
+      data: spending,
+    },
+  };
+};

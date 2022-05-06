@@ -15,6 +15,20 @@ export const SpendingReducer = (state = initialState.spending, action) => {
           spending => spending.id !== action.payload
         ),
       };
+
+    case Actions.UPDATE_SPENDING:
+      let identifiedSpending = state.spendingList.find(
+        spending => spending.id === action.payload.id
+      );
+      identifiedSpending = action.payload.data;
+
+      const remainingSpending = state.spendingList.filter(
+        spending => spending.id !== action.payload.id
+      );
+      return {
+        spendingList: [...remainingSpending, identifiedSpending],
+      };
+
     default:
       return state;
   }
