@@ -20,8 +20,22 @@ const spendingSchema = yup.object().shape({
   memo: yup.string().required(),
 });
 
+const options = [
+  "Entertainment",
+  "Shopping",
+  "Food & Dining",
+  "Health & Fitness",
+  "Auto & Transport",
+  "Personal Care",
+  "Utilities",
+  "Travel",
+  "Education",
+  "Kids",
+  "Investments",
+  "Others",
+];
+
 const SpendingForm = ({ preloadedValues, type, spendingId }) => {
-  console.log(preloadedValues);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
@@ -41,7 +55,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
     setValue("memo", preloadedValues?.memo);
   }, [preloadedValues]);
 
-  const spendingSubmitHandler = data => {
+  const spendingCreateHandler = data => {
     const spending = {
       id: uuidv4(),
       category: data.category,
@@ -72,12 +86,12 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
     navigate("/spending");
   };
 
-  const handler =
-    type === "create" ? spendingSubmitHandler : spendingUpdateHandler;
+  const submitHandler =
+    type === "create" ? spendingCreateHandler : spendingUpdateHandler;
 
   return (
     <>
-      <form className={classes.form} onSubmit={handleSubmit(handler)}>
+      <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
         <label className={classes["form-label"]} htmlFor="category">
           Category
         </label>
@@ -85,26 +99,19 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
           className={classes["form-input"]}
           name="category"
           id="category"
-          defaultValue={"default"}
           {...register("category")}
         >
-          <option value={"default"} disabled hidden>
+          <option value="" disabled hidden>
             Select category
           </option>
-          <option value="Entertainment">Entertainment</option>
-          <option value="Shopping">Shopping</option>
-          <option value="Food & Dining">Food & Dining</option>
-          <option value="Health & Fitness">Health & Fitness</option>
-          <option value="Auto & Transport">Auto & Transport</option>
-          <option value="Personal Care">Personal Care</option>
-          <option value="Utilities">Utilities</option>
-          <option value="Travel">Travel</option>
-          <option value="Education">Education</option>
-          <option value="Kids">Kids</option>
-          <option value="Investments">Investments</option>
-          <option value="Others">Others</option>
+          {options.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
         </select>
         <p>{errors.category?.message}</p>
+
         <label className={classes["form-label"]} htmlFor="title">
           Title
         </label>
@@ -116,6 +123,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
           {...register("title")}
         />
         <p>{errors.title?.message}</p>
+
         <label className={classes["form-label"]} htmlFor="amount">
           Amount
         </label>
@@ -128,6 +136,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
           {...register("amount")}
         />
         <p>{errors.amount?.message}</p>
+
         <label className={classes["form-label"]} htmlFor="memo">
           Memo
         </label>
@@ -139,6 +148,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
           {...register("memo")}
         />
         <p>{errors.memo?.message}</p>
+
         <div className="spacer-sm" />
         <div className="center-row">
           <Button onClick={clearFormHandler}>Cancel</Button>
