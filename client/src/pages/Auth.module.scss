@@ -1,0 +1,87 @@
+@import "../mixin.scss";
+
+.auth {
+  max-width: 35rem;
+  height: 45rem;
+  overflow: hidden;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  padding: 2rem 0;
+  margin: 5rem auto 0;
+
+  .check {
+    display: none;
+  }
+
+  .login {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+
+    &-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-label {
+      color: $primary-color;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 3rem 0;
+    }
+
+    &-input {
+      width: 70%;
+      margin: 1rem auto;
+      font-size: 1.6rem;
+      padding: 1rem;
+      border: none;
+      border-bottom: 1.5px solid $secondary-color;
+      color: $primary-color;
+    }
+  }
+
+  .signup {
+    height: 46rem;
+    width: 100%;
+    background: $primary-color;
+    border-radius: 60% / 10%;
+    transform: translateY(-72px);
+    transition: 0.8s ease-in-out;
+
+    &-form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-label {
+      color: #fff;
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 3rem 0;
+    }
+
+    &-input {
+      width: 70%;
+      margin: 1rem auto;
+      font-size: 1.6rem;
+      padding: 1rem;
+      border: none;
+      color: $primary-color;
+    }
+  }
+
+  .check:checked ~ .signup {
+    transform: translateY(-330px);
+  }
+  .check:checked ~ .signup-label {
+    transform: scale(1);
+  }
+  .check:checked ~ .login-label {
+    transform: scale(0.6);
+  }
+}
