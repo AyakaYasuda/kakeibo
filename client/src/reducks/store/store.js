@@ -8,12 +8,14 @@ import thunk from "redux-thunk";
 
 import { SpendingReducer } from "../spending/reducers";
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = reduxCreateStore(
   combineReducers({
     spending: SpendingReducer,
     // users: UsersReducer,
   }),
-  applyMiddleware(thunk),
+  composeEnhancers(applyMiddleware(thunk))
 );
 
 export default store;
