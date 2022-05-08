@@ -8,8 +8,8 @@ import classNames from "classnames/bind";
 import classes from "./Auth.module.scss";
 
 const loginUserSchema = yup.object().shape({
-  userEmail: yup.string().email().required(),
-  userPassword: yup.string().min(6).required(),
+  email: yup.string().email().required(),
+  password: yup.string().min(6).required(),
 });
 
 const signupUserSchema = yup.object().shape({
@@ -57,7 +57,7 @@ const Auth = () => {
     signupFormReset();
   };
 
-  console.log(loginErrors);
+  console.log(signupErrors);
 
   return (
     <div className={classes.auth}>
@@ -72,20 +72,24 @@ const Auth = () => {
           >
             <input
               type="email"
-              name="userEmail"
+              name="email"
               placeholder="Email"
               className={classes["login-input"]}
-              {...loginFromRegister("userEmail")}
+              {...loginFromRegister("email")}
             />
-            <p>{loginErrors.userEmail?.message}</p>
+            <p className={classes["login-error"]}>
+              {loginErrors.email?.message}
+            </p>
             <input
               type="password"
-              name="userPassword"
+              name="password"
               placeholder="Password"
               className={classes["login-input"]}
-              {...loginFromRegister("userPassword")}
+              {...loginFromRegister("password")}
             />
-            <p>{loginErrors.userPassword?.message}</p>
+            <p className={classes["login-error"]}>
+              {loginErrors.password?.message}
+            </p>
             <div className="spacer-md" />
             <Button>Log In</Button>
           </form>
@@ -108,7 +112,9 @@ const Auth = () => {
               className={classes["signup-input"]}
               {...signupFromRegister("username")}
             />
-            <p>{signupErrors.username?.message}</p>
+            <p className={classes["signup-error"]}>
+              {signupErrors.username?.message}
+            </p>
             <input
               type="email"
               name="email"
@@ -116,7 +122,9 @@ const Auth = () => {
               className={classes["signup-input"]}
               {...signupFromRegister("email")}
             />
-            <p>{signupErrors.email?.message}</p>
+            <p className={classes["signup-error"]}>
+              {signupErrors.email?.message}
+            </p>
             <input
               type="password"
               name="password"
@@ -124,7 +132,9 @@ const Auth = () => {
               className={classes["signup-input"]}
               {...signupFromRegister("password")}
             />
-            <p>{signupErrors.password?.message}</p>
+            <p className={classes["signup-error"]}>
+              {signupErrors.password?.message}
+            </p>
             <input
               type="password"
               name="confirmPassword"
@@ -132,7 +142,9 @@ const Auth = () => {
               className={classes["signup-input"]}
               {...signupFromRegister("confirmPassword")}
             />
-            <p>{signupErrors.confirmPassword?.message}</p>
+            <p className={classes["signup-error"]}>
+              {signupErrors.confirmPassword?.message}
+            </p>
             <div className="spacer-md" />
             <Button>Sign Up</Button>
           </form>
