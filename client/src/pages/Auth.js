@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { loginAction, signupAction } from "../reducks/users/actions";
+import { v4 as uuidv4 } from "uuid";
 
 import Button from "../components/UI/Button";
 import classNames from "classnames/bind";
@@ -23,6 +26,7 @@ let cx = classNames.bind(classes);
 
 const Auth = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const dispatch = useDispatch();
 
   const signupClass = cx({
     signup: true,
@@ -48,16 +52,25 @@ const Auth = () => {
   };
 
   const loginHandler = data => {
-    console.log(data);
+    const userState = {
+      uid: uuidv4(),
+      email: data.email,
+      password: data.password,
+    };
+    dispatch(loginAction(userState));
     loginFormReset();
   };
 
   const signupHandler = data => {
-    console.log(data);
+    const userState = {
+      uid: uuidv4(),
+      username: data.username,
+      email: data.email,
+      password: data.password,
+    };
+    dispatch(signupAction(userState));
     signupFormReset();
   };
-
-  console.log(signupErrors);
 
   return (
     <div className={classes.auth}>
