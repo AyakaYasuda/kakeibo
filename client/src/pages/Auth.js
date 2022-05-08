@@ -57,6 +57,8 @@ const Auth = () => {
     signupFormReset();
   };
 
+  console.log(loginErrors);
+
   return (
     <div className={classes.auth}>
       <div className={classes.login}>
@@ -75,6 +77,7 @@ const Auth = () => {
               className={classes["login-input"]}
               {...loginFromRegister("userEmail")}
             />
+            <p>{loginErrors.userEmail?.message}</p>
             <input
               type="password"
               name="userPassword"
@@ -82,6 +85,7 @@ const Auth = () => {
               className={classes["login-input"]}
               {...loginFromRegister("userPassword")}
             />
+            <p>{loginErrors.userPassword?.message}</p>
             <div className="spacer-md" />
             <Button>Log In</Button>
           </form>
@@ -104,6 +108,7 @@ const Auth = () => {
               className={classes["signup-input"]}
               {...signupFromRegister("username")}
             />
+            <p>{signupErrors.username?.message}</p>
             <input
               type="email"
               name="email"
@@ -111,6 +116,7 @@ const Auth = () => {
               className={classes["signup-input"]}
               {...signupFromRegister("email")}
             />
+            <p>{signupErrors.email?.message}</p>
             <input
               type="password"
               name="password"
@@ -118,6 +124,7 @@ const Auth = () => {
               className={classes["signup-input"]}
               {...signupFromRegister("password")}
             />
+            <p>{signupErrors.password?.message}</p>
             <input
               type="password"
               name="confirmPassword"
@@ -125,6 +132,7 @@ const Auth = () => {
               className={classes["signup-input"]}
               {...signupFromRegister("confirmPassword")}
             />
+            <p>{signupErrors.confirmPassword?.message}</p>
             <div className="spacer-md" />
             <Button>Sign Up</Button>
           </form>
