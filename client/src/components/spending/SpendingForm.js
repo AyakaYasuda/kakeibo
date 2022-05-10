@@ -89,6 +89,8 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
   const submitHandler =
     type === "create" ? spendingCreateHandler : spendingUpdateHandler;
 
+  console.log(errors);
+
   return (
     <>
       <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>

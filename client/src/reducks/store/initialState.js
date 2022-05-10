@@ -14,6 +14,8 @@ const initialState = {
     isLoggedIn: false,
     uid: "",
     username: "",
+    email: "",
+    password: "",
   },
 };
 

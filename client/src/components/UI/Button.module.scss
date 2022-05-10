@@ -3,11 +3,11 @@
 .btn {
   font: inherit;
   font-size: 1.5rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2.5rem;
   margin: 0 0.5rem;
   background-color: $accent-color;
   border: none;
-  border-radius: 5px;
+  border-radius: 999px;
   color: white;
   cursor: pointer;
   text-decoration: none;
@@ -15,7 +15,7 @@
 
   &:hover,
   &:active {
-    opacity: 0.8;
+    background-color: #d65151;
   }
 
   &:disabled,

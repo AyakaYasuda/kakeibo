@@ -7,13 +7,14 @@ import {
 import thunk from "redux-thunk";
 
 import { SpendingReducer } from "../spending/reducers";
+import { UsersReducer } from "../users/reducers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = reduxCreateStore(
   combineReducers({
     spending: SpendingReducer,
-    // users: UsersReducer,
+    users: UsersReducer,
   }),
   composeEnhancers(applyMiddleware(thunk))
 );
