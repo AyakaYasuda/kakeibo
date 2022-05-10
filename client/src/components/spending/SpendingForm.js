@@ -17,7 +17,7 @@ const spendingSchema = yup.object().shape({
   category: yup.string().required(),
   title: yup.string().required(),
   amount: yup.number().positive().required(),
-  memo: yup.string().required(),
+  memo: yup.string(),
 });
 
 const options = [
