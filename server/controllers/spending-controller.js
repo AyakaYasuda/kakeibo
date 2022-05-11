@@ -27,19 +27,20 @@ const createSpending = async (req, res, next) => {
 
   if (!errors.isEmpty()) {
     const error = new HttpError(
-      "Invalid inputs were passed, please check your data",
+      "Invalid inputs were passed. Please check your data",
       422
     );
     return next(error);
   }
 
-  const { category, title, amount, memo } = req.body;
+  const { category, title, amount, memo, creator } = req.body;
 
   const createdSpending = new Spending({
     category,
     title,
     amount,
     memo,
+    creator,
   });
 
   try {
