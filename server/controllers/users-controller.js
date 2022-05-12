@@ -58,7 +58,7 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ user: createdUser });
+  res.status(201).json({ user: createdUser.toJSON({ getters: true }) });
 };
 
 const login = async (req, res, next) => {

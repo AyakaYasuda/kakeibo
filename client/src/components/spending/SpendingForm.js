@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   createSpendingAction,
   updateSpendingAction,
@@ -38,6 +38,7 @@ const options = [
 const SpendingForm = ({ preloadedValues, type, spendingId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loginUserId = useSelector(state => state.users.uid);
   const {
     register,
     handleSubmit,
@@ -62,6 +63,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
       title: data.title,
       amount: data.amount,
       memo: data.memo,
+      creator: loginUserId,
     };
     dispatch(createSpendingAction(spending));
     clearFormHandler();

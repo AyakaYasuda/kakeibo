@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { loginAction, signupAction } from "../reducks/users/actions";
-import { v4 as uuidv4 } from "uuid";
 
 import Button from "../components/UI/Button";
 import classNames from "classnames/bind";
@@ -53,7 +52,6 @@ const Auth = () => {
 
   const loginHandler = data => {
     const userState = {
-      uid: uuidv4(),
       email: data.email,
       password: data.password,
     };
@@ -63,7 +61,6 @@ const Auth = () => {
 
   const signupHandler = data => {
     const userState = {
-      uid: uuidv4(),
       username: data.username,
       email: data.email,
       password: data.password,
