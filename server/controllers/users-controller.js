@@ -58,7 +58,7 @@ const signup = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(201).json({ user: createdUser.toJSON({ getters: true }) });
+  res.status(201).json({ user: createdUser.toObject({ getters: true }) });
 };
 
 const login = async (req, res, next) => {
@@ -91,7 +91,7 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ message: "Successfully logged in!" });
+  res.status(200).json({ email, password });
 };
 
 exports.signup = signup;

@@ -2,21 +2,25 @@ import {
   legacy_createStore as reduxCreateStore,
   combineReducers,
   applyMiddleware,
-  compose,
 } from "redux";
-import thunk from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 import { SpendingReducer } from "../spending/reducers";
 import { UsersReducer } from "../users/reducers";
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const configureStore = preloadedState => {
+  const middlewareEnhancer = applyMiddleware(thunkMiddleware);
+  const composedEnhancers = composeWithDevTools(middlewareEnhancer);
 
-const store = reduxCreateStore(
-  combineReducers({
-    spending: SpendingReducer,
-    users: UsersReducer,
-  }),
-  composeEnhancers(applyMiddleware(thunk))
-);
+  const store = reduxCreateStore(
+    combineReducers({
+      spending: SpendingReducer,
+      users: UsersReducer,
+    }),
+    preloadedState,
+    composedEnhancers
+  );
 
-export default store;
+  return store;
+};

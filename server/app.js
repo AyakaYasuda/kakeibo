@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const spendingRoutes = require("./routes/spending-routes");
 const usersRoutes = require("./routes/users-routes");
@@ -9,6 +10,7 @@ const HttpError = require("./models/http-error");
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use("/api/spending", spendingRoutes);
 app.use("/api/users", usersRoutes);
