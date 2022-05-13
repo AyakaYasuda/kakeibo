@@ -91,7 +91,14 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ email, password });
+  res
+    .status(200)
+    .json({
+      uid: existingUser.id,
+      username: existingUser.username,
+      email,
+      password,
+    });
 };
 
 exports.signup = signup;

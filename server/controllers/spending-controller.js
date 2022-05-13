@@ -97,6 +97,7 @@ const createSpending = async (req, res, next) => {
     await user.save({ session: sess });
     await sess.commitTransaction();
   } catch (err) {
+    console.log(err);
     const error = new HttpError("Failed to create new spending...", 500);
     return next(error);
   }
@@ -158,7 +159,10 @@ const updateSpending = async (req, res, next) => {
 
   res
     .status(201)
-    .json({ spending: spendingToUpdate.toObject({ getters: true }) });
+    .json({
+      spendingId: spendingToUpdate.id,
+      spending: spendingToUpdate.toObject({ getters: true }),
+    });
 };
 
 const deleteSpending = async (req, res, next) => {
@@ -199,7 +203,7 @@ const deleteSpending = async (req, res, next) => {
     return next(error);
   }
 
-  res.status(200).json({ message: "Successfully deleted the spending" });
+  res.status(200).json({ spendingId: spendingToDelete.id });
 };
 
 exports.getSpendingById = getSpendingById;

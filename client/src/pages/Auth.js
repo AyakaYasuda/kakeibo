@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signup, login } from "../reducks/users/operations";
 
 import Button from "../components/UI/Button";
@@ -60,7 +60,7 @@ const Auth = () => {
     };
     dispatch(signup(userState));
     signupFormReset();
-    navigate("/home");
+    navigate("/my-page");
   };
 
   const loginHandler = data => {
@@ -70,7 +70,7 @@ const Auth = () => {
     };
     dispatch(login(userState));
     loginFormReset();
-    navigate("/home");
+    navigate("/my-page");
   };
 
   return (

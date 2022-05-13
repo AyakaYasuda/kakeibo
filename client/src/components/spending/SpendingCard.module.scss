@@ -51,6 +51,7 @@
   &-info {
     padding: 2rem;
     width: 100%;
+    min-height: 11.5rem;
     position: relative;
   }
 
@@ -118,6 +119,10 @@
 
     &-category {
       border-top-right-radius: 0;
+    }
+
+    &-info {
+      min-height: auto;
     }
 
     &-options {

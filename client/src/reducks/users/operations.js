@@ -29,6 +29,8 @@ export const login = userState => {
         dispatch(
           loginAction({
             isLoggedIn: true,
+            uid: response.data.uid,
+            username: response.data.username,
             email: response.data.email,
             password: response.data.password,
           })

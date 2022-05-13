@@ -4,11 +4,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  createSpendingAction,
-  updateSpendingAction,
-} from "../../reducks/spending/actions";
+  createSpending,
+  updateSpending,
+} from "../../reducks/spending/operations";
 import { useNavigate } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
 
 import Button from "../UI/Button";
 import classes from "./SpendingForm.module.scss";
@@ -58,14 +57,13 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
 
   const spendingCreateHandler = data => {
     const spending = {
-      id: uuidv4(),
       category: data.category,
       title: data.title,
       amount: data.amount,
       memo: data.memo,
       creator: loginUserId,
     };
-    dispatch(createSpendingAction(spending));
+    dispatch(createSpending(spending));
     clearFormHandler();
     navigate("/spending");
   };
@@ -78,7 +76,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
       amount: data.amount,
       memo: data.memo,
     };
-    dispatch(updateSpendingAction(spendingId, spending));
+    dispatch(updateSpending(spendingId, spending));
     clearFormHandler();
     navigate("/spending");
   };
@@ -90,8 +88,6 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
 
   const submitHandler =
     type === "create" ? spendingCreateHandler : spendingUpdateHandler;
-
-  console.log(errors);
 
   return (
     <>

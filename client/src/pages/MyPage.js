@@ -1,11 +1,22 @@
-import React from "react";
-import classes from "./Home.module.scss";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getSpendingByUserId } from "../reducks/spending/operations";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faListSquares, faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import classes from "./MyPage.module.scss";
 
-const Home = () => {
+const MyPage = () => {
+  const userId = useSelector(state => state.users.uid);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getSpendingByUserId(userId));
+    }
+  }, [dispatch, userId]);
+
   return (
     <div className="section-container center-col">
       <div>
@@ -24,4 +35,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default MyPage;
