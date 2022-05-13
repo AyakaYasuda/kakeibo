@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deleteSpendingAction } from "../../reducks/spending/actions";
+import { deleteSpending } from "../../reducks/spending/operations";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,8 +13,7 @@ const SpendingCard = ({ data }) => {
   const spendingId = data.id;
 
   const deleteHandler = () => {
-    console.log(spendingId);
-    dispatch(deleteSpendingAction(spendingId));
+    dispatch(deleteSpending(spendingId));
   };
 
   return (

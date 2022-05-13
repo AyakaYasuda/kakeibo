@@ -1,3 +1,11 @@
+export const FETCH_USERS_SPENDING = "FETCH_USERS_SPENDING";
+export const fetchUsersSpendingAction = spending => {
+  return {
+    type: "FETCH_USERS_SPENDING",
+    payload: spending,
+  };
+};
+
 export const CREATE_SPENDING = "CREATE_SPENDING";
 export const createSpendingAction = spending => {
   return {
@@ -15,13 +23,9 @@ export const deleteSpendingAction = spendingId => {
 };
 
 export const UPDATE_SPENDING = "UPDATE_SPENDING";
-export const updateSpendingAction = (spendingId, spending) => {
-  console.log(spendingId)
+export const updateSpendingAction = spending => {
   return {
     type: "UPDATE_SPENDING",
-    payload: {
-      id: spendingId,
-      data: spending,
-    },
+    payload: { id: spending.id, data: spending.data },
   };
 };

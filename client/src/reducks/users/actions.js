@@ -1,26 +1,15 @@
-export const LOGIN = "LOGIN";
-export const loginAction = userState => {
+export const SIGNUP = "SIGNUP";
+export const signupAction = user => {
   return {
-    type: "LOGIN",
-    payload: {
-      isLoggedIn: true,
-      uid: userState.uid,
-      email: userState.email,
-      password: userState.password,
-    },
+    type: "SIGNUP",
+    payload: user,
   };
 };
 
-export const SIGNUP = "SIGNUP";
-export const signupAction = userState => {
+export const LOGIN = "LOGIN";
+export const loginAction = user => {
   return {
-    type: "SIGNUP",
-    payload: {
-      isLoggedIn: true,
-      uid: userState.uid,
-      username: userState.username,
-      email: userState.email,
-      password: userState.password,
-    },
+    type: "LOGIN",
+    payload: user,
   };
 };

@@ -6,7 +6,7 @@ const spendingSchema = new Schema({
   category: { type: String, required: true },
   title: { type: String, required: true },
   amount: { type: Number, required: true },
-  memo: { type: String, required: true },
+  memo: { type: String, required: false },
   creator: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
 });
 

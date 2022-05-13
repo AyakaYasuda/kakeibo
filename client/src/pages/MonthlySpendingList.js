@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -9,14 +9,9 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import classes from "./MonthlySpendingList.module.scss";
 
 const MonthlySpendingList = () => {
-  const [loadedSpending, setLoadedSpending] = useState();
-  const spending = useSelector(state => state.spending.spendingList);
+  const spendingList = useSelector(state => state.spending.spendingList);
 
-  useEffect(() => {
-    setLoadedSpending(spending);
-  }, [spending]);
-
-  if (!loadedSpending || loadedSpending.length === 0) {
+  if (!spendingList || spendingList.length === 0) {
     return (
       <div className="section-container center-col">
         <p>No spending yet... Create new spending?</p>
@@ -28,8 +23,8 @@ const MonthlySpendingList = () => {
 
   return (
     <div className={classes.container}>
-      {loadedSpending.length > 0 &&
-        loadedSpending.map(spending => (
+      {spendingList.length > 0 &&
+        spendingList.map(spending => (
           <SpendingCard data={spending} key={spending.id} />
         ))}
       <Link to={"/spending/new"}>

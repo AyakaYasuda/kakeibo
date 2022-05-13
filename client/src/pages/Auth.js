@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
-import { loginAction, signupAction } from "../reducks/users/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { signup, login } from "../reducks/users/operations";
 
 import Button from "../components/UI/Button";
 import classNames from "classnames/bind";
@@ -26,6 +27,7 @@ let cx = classNames.bind(classes);
 const Auth = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const signupClass = cx({
     signup: true,
@@ -50,23 +52,25 @@ const Auth = () => {
     setIsLoginMode(prev => !prev);
   };
 
-  const loginHandler = data => {
-    const userState = {
-      email: data.email,
-      password: data.password,
-    };
-    dispatch(loginAction(userState));
-    loginFormReset();
-  };
-
   const signupHandler = data => {
     const userState = {
       username: data.username,
       email: data.email,
       password: data.password,
     };
-    dispatch(signupAction(userState));
+    dispatch(signup(userState));
     signupFormReset();
+    navigate("/my-page");
+  };
+
+  const loginHandler = data => {
+    const userState = {
+      email: data.email,
+      password: data.password,
+    };
+    dispatch(login(userState));
+    loginFormReset();
+    navigate("/my-page");
   };
 
   return (

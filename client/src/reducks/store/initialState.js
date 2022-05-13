@@ -1,14 +1,6 @@
 const initialState = {
   spending: {
-    spendingList: [
-      {
-        id: "s1",
-        category: "Shopping",
-        title: "boots",
-        amount: 121.89,
-        memo: "a treat for myself",
-      },
-    ],
+    spendingList: [],
   },
   users: {
     isLoggedIn: false,

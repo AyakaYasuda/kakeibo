@@ -2,7 +2,6 @@ import * as Actions from "./actions";
 import initialState from "../store/initialState";
 
 export const UsersReducer = (state = initialState.users, action) => {
-  console.log(action);
   switch (action.type) {
     case Actions.LOGIN:
       return {
