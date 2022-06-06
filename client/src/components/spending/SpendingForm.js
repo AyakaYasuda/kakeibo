@@ -56,6 +56,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
   }, [preloadedValues]);
 
   const spendingCreateHandler = data => {
+    console.log(loginUserId);
     const spending = {
       category: data.category,
       title: data.title,

@@ -94,7 +94,7 @@ const createSpending = async (req, res, next) => {
     sess.startTransaction();
     await createdSpending.save({ session: sess });
     user.spending.push(createdSpending);
-    await user.save({ session: sess });
+    await user.save({ session: sess, validateModifiedOnly: true });
     await sess.commitTransaction();
   } catch (err) {
     console.log(err);
@@ -157,12 +157,10 @@ const updateSpending = async (req, res, next) => {
     return next(error);
   }
 
-  res
-    .status(201)
-    .json({
-      spendingId: spendingToUpdate.id,
-      spending: spendingToUpdate.toObject({ getters: true }),
-    });
+  res.status(201).json({
+    spendingId: spendingToUpdate.id,
+    spending: spendingToUpdate.toObject({ getters: true }),
+  });
 };
 
 const deleteSpending = async (req, res, next) => {
@@ -193,7 +191,10 @@ const deleteSpending = async (req, res, next) => {
     sess.startTransaction();
     await spendingToDelete.remove({ session: sess });
     spendingToDelete.creator.spending.pull(spendingToDelete);
-    await spendingToDelete.creator.save({ session: sess });
+    await spendingToDelete.creator.save({
+      session: sess,
+      validateModifiedOnly: true,
+    });
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
