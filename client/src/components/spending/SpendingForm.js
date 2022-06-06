@@ -38,6 +38,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loginUserId = useSelector(state => state.users.uid);
+  const token = useSelector(state => state.users.token);
   const {
     register,
     handleSubmit,
@@ -56,7 +57,6 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
   }, [preloadedValues]);
 
   const spendingCreateHandler = data => {
-    console.log(loginUserId);
     const spending = {
       category: data.category,
       title: data.title,
@@ -64,7 +64,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
       memo: data.memo,
       creator: loginUserId,
     };
-    dispatch(createSpending(spending));
+    dispatch(createSpending(spending, token));
     clearFormHandler();
     navigate("/spending");
   };
@@ -77,7 +77,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
       amount: data.amount,
       memo: data.memo,
     };
-    dispatch(updateSpending(spendingId, spending));
+    dispatch(updateSpending(spendingId, spending, token));
     clearFormHandler();
     navigate("/spending");
   };

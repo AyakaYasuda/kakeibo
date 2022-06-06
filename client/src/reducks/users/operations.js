@@ -6,12 +6,15 @@ export const signup = userState => {
     await axios
       .post(`${process.env.REACT_APP_BACKEND_API}/users/signup`, userState)
       .then(response => {
+        console.log(response.data);
         dispatch(
           signupAction({
             isLoggedIn: true,
-            username: response.data.user.username,
-            email: response.data.user.email,
-            password: response.data.user.password,
+            uid: response.data.userId,
+            username: response.data.username,
+            email: response.data.email,
+            password: response.data.password,
+            token: response.data.token,
           })
         );
       })
@@ -33,6 +36,7 @@ export const login = userState => {
             username: response.data.username,
             email: response.data.email,
             password: response.data.password,
+            token: response.data.token,
           })
         );
       });

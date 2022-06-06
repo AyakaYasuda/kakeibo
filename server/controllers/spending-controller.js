@@ -142,11 +142,19 @@ const updateSpending = async (req, res, next) => {
   }
 
   // make sure that creator and login user are matching
+  if (spendingToUpdate.creator.toString() !== req.userData.userId) {
+    const error = new HttpError(
+      "This user is not allowed to update this spending",
+      401
+    );
+    return next(error);
+  }
 
   spendingToUpdate.category = category;
   spendingToUpdate.title = title;
   spendingToUpdate.amount = amount;
   spendingToUpdate.memo = memo;
+
   try {
     await spendingToUpdate.save();
   } catch (err) {
@@ -182,9 +190,17 @@ const deleteSpending = async (req, res, next) => {
       "Could not find the spending for the provided spending id",
       404
     );
+    return next(error);
   }
 
   // make sure that creator and login user are matching
+  if (spendingToDelete.creator.id !== req.userData.userId) {
+    const error = new HttpError(
+      "This user is not allowed to delete this spending",
+      401
+    );
+    return next(error);
+  }
 
   try {
     const sess = await mongoose.startSession();
