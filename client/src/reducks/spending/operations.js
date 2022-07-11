@@ -19,10 +19,14 @@ export const getSpendingByUserId = userId => {
   };
 };
 
-export const createSpending = newSpending => {
+export const createSpending = (newSpending, token) => {
   return async dispatch => {
     await axios
-      .post(`${process.env.REACT_APP_BACKEND_API}/spending`, newSpending)
+      .post(`${process.env.REACT_APP_BACKEND_API}/spending`, newSpending, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(response => {
         dispatch(createSpendingAction(response.data.spending));
       })
@@ -32,10 +36,14 @@ export const createSpending = newSpending => {
   };
 };
 
-export const deleteSpending = spendingId => {
+export const deleteSpending = (spendingId, token) => {
   return async dispatch => {
     await axios
-      .delete(`${process.env.REACT_APP_BACKEND_API}/spending/${spendingId}`)
+      .delete(`${process.env.REACT_APP_BACKEND_API}/spending/${spendingId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then(response => {
         dispatch(deleteSpendingAction(response.data.spendingId));
       })
@@ -45,12 +53,17 @@ export const deleteSpending = spendingId => {
   };
 };
 
-export const updateSpending = (spendingId, updatedSpending) => {
+export const updateSpending = (spendingId, updatedSpending, token) => {
   return async dispatch => {
     await axios
       .patch(
         `${process.env.REACT_APP_BACKEND_API}/spending/${spendingId}`,
-        updatedSpending
+        updatedSpending,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       )
       .then(response => {
         dispatch(

@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteSpending } from "../../reducks/spending/operations";
 import { Link } from "react-router-dom";
 
@@ -9,11 +9,12 @@ import classes from "./SpendingCard.module.scss";
 
 const SpendingCard = ({ data }) => {
   const dispatch = useDispatch();
+  const token = useSelector(state => state.users.token);
 
   const spendingId = data.id;
 
   const deleteHandler = () => {
-    dispatch(deleteSpending(spendingId));
+    dispatch(deleteSpending(spendingId, token));
   };
 
   return (

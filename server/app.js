@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
 
 const spendingRoutes = require("./routes/spending-routes");
 const usersRoutes = require("./routes/users-routes");
@@ -30,8 +31,9 @@ mongoose
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@mycluster.xq6fs.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
   )
   .then(() => {
-    app.listen(process.env.PORT || 5000, () => {
-      console.log("Server is running");
+    const port = process.env.PORT || 5000;
+    app.listen(port, () => {
+      console.log(`Server is running on port: ${port}`);
     });
   })
   .catch(err => {

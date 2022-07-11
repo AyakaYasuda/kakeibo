@@ -4,10 +4,11 @@ const initialState = {
   },
   users: {
     isLoggedIn: false,
-    uid: "",
+    uid: null,
     username: "",
     email: "",
     password: "",
+    token: null,
   },
 };
 

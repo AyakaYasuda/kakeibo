@@ -94,7 +94,7 @@ const createSpending = async (req, res, next) => {
     sess.startTransaction();
     await createdSpending.save({ session: sess });
     user.spending.push(createdSpending);
-    await user.save({ session: sess });
+    await user.save({ session: sess, validateModifiedOnly: true });
     await sess.commitTransaction();
   } catch (err) {
     console.log(err);
@@ -142,11 +142,19 @@ const updateSpending = async (req, res, next) => {
   }
 
   // make sure that creator and login user are matching
+  if (spendingToUpdate.creator.toString() !== req.userData.userId) {
+    const error = new HttpError(
+      "This user is not allowed to update this spending",
+      401
+    );
+    return next(error);
+  }
 
   spendingToUpdate.category = category;
   spendingToUpdate.title = title;
   spendingToUpdate.amount = amount;
   spendingToUpdate.memo = memo;
+
   try {
     await spendingToUpdate.save();
   } catch (err) {
@@ -157,12 +165,10 @@ const updateSpending = async (req, res, next) => {
     return next(error);
   }
 
-  res
-    .status(201)
-    .json({
-      spendingId: spendingToUpdate.id,
-      spending: spendingToUpdate.toObject({ getters: true }),
-    });
+  res.status(201).json({
+    spendingId: spendingToUpdate.id,
+    spending: spendingToUpdate.toObject({ getters: true }),
+  });
 };
 
 const deleteSpending = async (req, res, next) => {
@@ -184,16 +190,27 @@ const deleteSpending = async (req, res, next) => {
       "Could not find the spending for the provided spending id",
       404
     );
+    return next(error);
   }
 
   // make sure that creator and login user are matching
+  if (spendingToDelete.creator.id !== req.userData.userId) {
+    const error = new HttpError(
+      "This user is not allowed to delete this spending",
+      401
+    );
+    return next(error);
+  }
 
   try {
     const sess = await mongoose.startSession();
     sess.startTransaction();
     await spendingToDelete.remove({ session: sess });
     spendingToDelete.creator.spending.pull(spendingToDelete);
-    await spendingToDelete.creator.save({ session: sess });
+    await spendingToDelete.creator.save({
+      session: sess,
+      validateModifiedOnly: true,
+    });
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
