@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { autoLogin, logout } from './reducks/users/operations';
 
@@ -15,7 +14,6 @@ const Router = () => {
   const [token, setToken] = useState();
   const [userId, setUserId] = useState();
   const [expiration, setExpiration] = useState();
-  const isLoggedIn = useSelector((state) => state.users.isLoggedIn);
   const storedData = JSON.parse(localStorage.getItem('userData'));
 
   useEffect(() => {
@@ -33,7 +31,7 @@ const Router = () => {
   // auto login
   useEffect(() => {
     if (token && new Date(expiration) > new Date()) {
-      dispatch(autoLogin(userId, new Date(expiration)));
+      dispatch(autoLogin(userId, token, new Date(expiration)));
     }
   }, [token, expiration, userId, dispatch]);
 
@@ -50,7 +48,7 @@ const Router = () => {
   }, [token, expiration, dispatch]);
 
   let routes;
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <>
         <Route exact path="/my-page" element={<MyPage />} />

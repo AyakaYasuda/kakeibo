@@ -5,7 +5,7 @@ export const SpendingReducer = (state = initialState.spending, action) => {
   switch (action.type) {
     case Actions.FETCH_USERS_SPENDING:
       return {
-        spendingList: [...state.spendingList, ...action.payload],
+        spendingList: [...action.payload],
       };
 
     case Actions.CREATE_SPENDING:

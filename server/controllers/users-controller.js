@@ -78,6 +78,7 @@ const signup = async (req, res, next) => {
     userId: createdUser.id,
     username: createdUser.username,
     email: createdUser.email,
+    password: createdUser.password,
     token: token,
   });
 };
@@ -139,6 +140,7 @@ const login = async (req, res, next) => {
     userId: existingUser.id,
     username: existingUser.username,
     email: existingUser.email,
+    password: existingUser.password,
     token: token,
   });
 };
@@ -159,7 +161,7 @@ const getUserById = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ user: user });
+  res.json({ user: user.toObject({ getters: true }) });
 };
 
 exports.signup = signup;

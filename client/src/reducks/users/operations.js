@@ -57,12 +57,12 @@ export const login = (userState, expirationDate) => {
   };
 };
 
-export const autoLogin = (userId, expirationDate) => {
+export const autoLogin = (userId, token, expirationDate) => {
   return async (dispatch) => {
     await axios
       .get(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`)
       .then((response) => {
-        const { userId, username, email, password, token } = response.data.user;
+        const { username, email, password } = response.data.user;
 
         dispatch(
           loginAction(
