@@ -8,8 +8,11 @@ const spendingSchema = new Schema({
   amount: { type: Number, required: true },
   memo: { type: String, required: false },
   creator: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
+  createdAt: {
+    type: Date,
+    default: () => Date.now(),
+    immutable: true,
+  },
 });
-
-spendingSchema.set('timestamps', true);
 
 module.exports = mongoose.model('Spending', spendingSchema);

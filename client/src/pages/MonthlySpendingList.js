@@ -14,22 +14,15 @@ import classes from './MonthlySpendingList.module.scss';
 
 const MonthlySpendingList = () => {
   const dispatch = useDispatch();
+  const initialDate = `${new Date().getFullYear().toString()}-${(
+    '0' + (new Date().getMonth() + 1).toString()
+  ).slice(-2)}`;
+
   const [monthlyTotalSpending, setMonthlyTotalSpending] = useState();
-  const [currentYear, setCurrentYear] = useState('');
-  const [currentMonth, setCurrentMonth] = useState('');
-  const [filterValue, setFilterValue] = useState(
-    `${new Date().getFullYear().toString()}-${(
-      0 + new Date().getMonth().toString()
-    ).slice(-2)}`
-  );
+  const [filterValue, setFilterValue] = useState(initialDate);
   const [filteredSpendingList, setFilteredSpendingList] = useState([]);
   const userId = useSelector((state) => state.users.uid);
   const spendingList = useSelector((state) => state.spending.spendingList);
-
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear());
-    setCurrentMonth(new Date().getMonth());
-  }, []);
 
   useEffect(() => {
     if (userId) {
