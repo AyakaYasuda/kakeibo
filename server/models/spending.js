@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
@@ -7,7 +7,9 @@ const spendingSchema = new Schema({
   title: { type: String, required: true },
   amount: { type: Number, required: true },
   memo: { type: String, required: false },
-  creator: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
+  creator: { type: mongoose.Types.ObjectId, required: true, ref: 'User' },
 });
 
-module.exports = mongoose.model("Spending", spendingSchema);
+spendingSchema.set('timestamps', true);
+
+module.exports = mongoose.model('Spending', spendingSchema);
