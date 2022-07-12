@@ -1,14 +1,17 @@
-import { Fragment } from "react";
-import Header from "./components/UI/Header";
-import Router from "./Router";
+import { Fragment } from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Header from './components/UI/Header';
+import Router from './Router';
 
 const App = () => {
   return (
     <Fragment>
-      <Header />
-      <main>
-        <Router />
-      </main>
+      <BrowserRouter>
+        <Header />
+        <main>
+          <Router />
+        </main>
+      </BrowserRouter>
     </Fragment>
   );
 };

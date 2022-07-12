@@ -1,16 +1,16 @@
-const { validationResult } = require("express-validator");
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const { validationResult } = require('express-validator');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-const HttpError = require("../models/http-error");
-const User = require("../models/user");
+const HttpError = require('../models/http-error');
+const User = require('../models/user');
 
 const signup = async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     const error = new HttpError(
-      "Invalid inputs were passed. Please check your data",
+      'Invalid inputs were passed. Please check your data',
       422
     );
     return next(error);
@@ -22,13 +22,13 @@ const signup = async (req, res, next) => {
   try {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
-    const error = new HttpError("Failed to sign up. Please try again", 500);
+    const error = new HttpError('Failed to sign up. Please try again', 500);
     return next(error);
   }
 
   if (existingUser) {
     const error = new HttpError(
-      "This user already exists. Please log in instead",
+      'This user already exists. Please log in instead',
       422
     );
     return next(error);
@@ -39,7 +39,7 @@ const signup = async (req, res, next) => {
     hashedPassword = await bcrypt.hash(password, 12);
   } catch (err) {
     const error = new HttpError(
-      "Could not create a user. Please try again",
+      'Could not create a user. Please try again',
       500
     );
     return next(error);
@@ -55,7 +55,7 @@ const signup = async (req, res, next) => {
   try {
     await createdUser.save();
   } catch (err) {
-    const error = new HttpError("Failed to sign up. Please try again", 500);
+    const error = new HttpError('Failed to sign up. Please try again', 500);
     return next(error);
   }
 
@@ -67,10 +67,10 @@ const signup = async (req, res, next) => {
         email: createdUser.email,
       },
       process.env.JWT_KEY,
-      { expiresIn: "1h" }
+      { expiresIn: '1h' }
     );
   } catch (err) {
-    const error = new HttpError("Failed to sign up. Please try again", 500);
+    const error = new HttpError('Failed to sign up. Please try again', 500);
     return next(error);
   }
 
@@ -78,6 +78,7 @@ const signup = async (req, res, next) => {
     userId: createdUser.id,
     username: createdUser.username,
     email: createdUser.email,
+    password: createdUser.password,
     token: token,
   });
 };
@@ -89,13 +90,13 @@ const login = async (req, res, next) => {
   try {
     existingUser = await User.findOne({ email: email });
   } catch (err) {
-    const error = new HttpError("Failed to log in. Please try again", 500);
+    const error = new HttpError('Failed to log in. Please try again', 500);
     return next(error);
   }
 
   if (!existingUser) {
     const error = new HttpError(
-      "Invalid credentials. Sorry... we could not log you in",
+      'Invalid credentials. Sorry... we could not log you in',
       403
     );
     return next(error);
@@ -106,7 +107,7 @@ const login = async (req, res, next) => {
     isValidPassword = await bcrypt.compare(password, existingUser.password);
   } catch (err) {
     const error = new HttpError(
-      "Password was wrong. Sorry... we could not log you in",
+      'Password was wrong. Sorry... we could not log you in',
       403
     );
     return next(error);
@@ -114,7 +115,7 @@ const login = async (req, res, next) => {
 
   if (!isValidPassword) {
     const error = new HttpError(
-      "Invalid credentials, could not log you in",
+      'Invalid credentials, could not log you in',
       403
     );
     return next(error);
@@ -128,10 +129,10 @@ const login = async (req, res, next) => {
         email: existingUser.email,
       },
       process.env.JWT_KEY,
-      { expiresIn: "1h" }
+      { expiresIn: '1h' }
     );
   } catch (err) {
-    const error = new HttpError("Failed to log in. Please try again", 500);
+    const error = new HttpError('Failed to log in. Please try again', 500);
     return next(error);
   }
 
@@ -139,9 +140,30 @@ const login = async (req, res, next) => {
     userId: existingUser.id,
     username: existingUser.username,
     email: existingUser.email,
+    password: existingUser.password,
     token: token,
   });
 };
 
+const getUserById = async (req, res, next) => {
+  const userId = req.params.uid;
+
+  let user;
+  try {
+    user = await User.findById(userId);
+  } catch (err) {
+    const error = new HttpError('Could not find a user...', 500);
+    return next(error);
+  }
+
+  if (!user) {
+    const error = new HttpError('Could not find a user...', 404);
+    return next(error);
+  }
+
+  res.json({ user: user.toObject({ getters: true }) });
+};
+
 exports.signup = signup;
 exports.login = login;
+exports.getUserById = getUserById;

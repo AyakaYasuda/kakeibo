@@ -1,12 +1,11 @@
-import axios from "axios";
-import { signupAction, loginAction } from "./actions";
+import axios from 'axios';
+import { signupAction, loginAction, logoutAction } from './actions';
 
-export const signup = userState => {
-  return async dispatch => {
+export const signup = (userState) => {
+  return async (dispatch) => {
     await axios
       .post(`${process.env.REACT_APP_BACKEND_API}/users/signup`, userState)
-      .then(response => {
-        console.log(response.data);
+      .then((response) => {
         dispatch(
           signupAction({
             isLoggedIn: true,
@@ -18,17 +17,17 @@ export const signup = userState => {
           })
         );
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 };
 
-export const login = userState => {
-  return async dispatch => {
+export const login = (userState, expirationDate) => {
+  return async (dispatch) => {
     await axios
       .post(`${process.env.REACT_APP_BACKEND_API}/users/login`, userState)
-      .then(response => {
+      .then((response) => {
         dispatch(
           loginAction({
             isLoggedIn: true,
@@ -39,6 +38,64 @@ export const login = userState => {
             token: response.data.token,
           })
         );
+
+        const tokenExpirationDate =
+          expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+
+        localStorage.setItem(
+          'userData',
+          JSON.stringify({
+            uid: response.data.userId,
+            token: response.data.token,
+            expiration: tokenExpirationDate.toISOString(),
+          })
+        );
+      })
+      .catch((err) => {
+        console.log(err);
       });
+  };
+};
+
+export const autoLogin = (userId, token, expirationDate) => {
+  return async (dispatch) => {
+    await axios
+      .get(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`)
+      .then((response) => {
+        const { username, email, password } = response.data.user;
+
+        dispatch(
+          loginAction(
+            {
+              isLoggedIn: true,
+              uid: userId,
+              username: username,
+              email: email,
+              password: password,
+              token: token,
+            },
+            expirationDate
+          )
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const logout = () => {
+  return async (dispatch) => {
+    dispatch(
+      logoutAction({
+        isLoggedIn: false,
+        uid: null,
+        username: null,
+        email: null,
+        password: null,
+        token: null,
+      })
+    );
+    localStorage.removeItem('userData');
   };
 };

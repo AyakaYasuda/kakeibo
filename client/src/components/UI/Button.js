@@ -27,6 +27,7 @@ const Button = props => {
       </Link>
     );
   }
+  
   return (
     <button
       className={btnClass}
