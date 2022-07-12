@@ -1,0 +1,22 @@
+@import '../../mixin.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+
+  &-label {
+    font-size: 1.8rem;
+    margin-top: 0.7rem;
+    margin-bottom: 0.5rem;
+    color: $secondary-color;
+  }
+
+  &-input {
+    font-size: 1.6rem;
+    padding: 0.5rem;
+    border: 1px solid $secondary-color;
+    border-radius: 5px;
+    color: $primary-color;
+  }
+}

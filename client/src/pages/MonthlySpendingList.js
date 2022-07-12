@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { getSpendingByUserId } from '../reducks/spending/operations';
 
+import MonthFilter from '../components/spending/MonthFilter';
 import SpendingCard from '../components/spending/SpendingCard';
 import Button from '../components/UI/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,14 +14,70 @@ import classes from './MonthlySpendingList.module.scss';
 
 const MonthlySpendingList = () => {
   const dispatch = useDispatch();
+  const [monthlyTotalSpending, setMonthlyTotalSpending] = useState();
+  const [currentYear, setCurrentYear] = useState('');
+  const [currentMonth, setCurrentMonth] = useState('');
+  const [filterValue, setFilterValue] = useState(
+    `${new Date().getFullYear().toString()}-${(
+      0 + new Date().getMonth().toString()
+    ).slice(-2)}`
+  );
+  const [filteredSpendingList, setFilteredSpendingList] = useState([]);
   const userId = useSelector((state) => state.users.uid);
   const spendingList = useSelector((state) => state.spending.spendingList);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+    setCurrentMonth(new Date().getMonth());
+  }, []);
 
   useEffect(() => {
     if (userId) {
       dispatch(getSpendingByUserId(userId));
     }
-  }, [userId]);
+  }, [userId, dispatch]);
+
+  // get monthly total amount
+  useEffect(() => {
+    if (
+      spendingList &&
+      spendingList.length > 0 &&
+      currentYear &&
+      currentMonth
+    ) {
+      setFilteredSpendingList(spendingList);
+
+      const currentMonthSpendingArray = spendingList
+        .filter(
+          (spending) =>
+            new Date(spending.createdAt).getFullYear() === currentYear &&
+            new Date(spending.createdAt).getMonth() === currentMonth
+        )
+        .map((spending) => spending.amount);
+
+      const monthlyTotalAmount = currentMonthSpendingArray.reduce(
+        (prev, curr) => prev + curr,
+        0
+      );
+
+      setMonthlyTotalSpending(monthlyTotalAmount);
+    }
+  }, [spendingList, currentYear, currentMonth]);
+
+  // filter spending data by month
+  useEffect(() => {
+    const selectedYear = filterValue.slice(0, 4);
+    const selectedMonth = filterValue.slice(-2);
+
+    setFilteredSpendingList(
+      spendingList.filter((spending) => {
+        return (
+          new Date(spending.createdAt).getFullYear() === Number(selectedYear) &&
+          new Date(spending.createdAt).getMonth() + 1 === Number(selectedMonth)
+        );
+      })
+    );
+  }, [spendingList, filterValue]);
 
   if (!spendingList || spendingList.length === 0) {
     return (
@@ -34,8 +91,15 @@ const MonthlySpendingList = () => {
 
   return (
     <div className={classes.container}>
-      {spendingList.length > 0 &&
-        spendingList.map((spending) => (
+      {monthlyTotalSpending && (
+        <div>Total Spending : ${monthlyTotalSpending.toFixed(2)}</div>
+      )}
+      <MonthFilter
+        value={filterValue}
+        onChange={(e) => setFilterValue(e.target.value)}
+      />
+      {filteredSpendingList.length > 0 &&
+        filteredSpendingList.map((spending) => (
           <SpendingCard data={spending} key={spending.id} />
         ))}
       <Link to={'/spending/new'}>
