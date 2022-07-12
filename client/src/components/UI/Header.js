@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../../reducks/users/operations';
 
 import Button from './Button';
@@ -7,12 +8,12 @@ import classes from './Header.module.scss';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.users.isLoggedIn);
-  console.log('isLoggedIn', isLoggedIn);
 
   const logoutHandler = () => {
-    console.log('logout');
     dispatch(logout());
+    navigate('/');
   };
 
   return (

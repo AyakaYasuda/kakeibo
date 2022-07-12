@@ -68,7 +68,7 @@ const Auth = () => {
       email: data.email,
       password: data.password,
     };
-    dispatch(login(userState, null));
+    dispatch(login(userState));
     loginFormReset();
     navigate('/my-page');
   };

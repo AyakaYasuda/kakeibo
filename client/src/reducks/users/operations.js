@@ -57,6 +57,33 @@ export const login = (userState, expirationDate) => {
   };
 };
 
+export const autoLogin = (userId, expirationDate) => {
+  return async (dispatch) => {
+    await axios
+      .get(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`)
+      .then((response) => {
+        const { userId, username, email, password, token } = response.data.user;
+
+        dispatch(
+          loginAction(
+            {
+              isLoggedIn: true,
+              uid: userId,
+              username: username,
+              email: email,
+              password: password,
+              token: token,
+            },
+            expirationDate
+          )
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 export const logout = () => {
   return async (dispatch) => {
     dispatch(
