@@ -1,6 +1,6 @@
-import { Fragment } from "react";
-import Header from "./components/UI/Header";
-import Router from "./Router";
+import { Fragment } from 'react';
+import Header from './components/UI/Header';
+import Router from './Router';
 
 const App = () => {
   return (
