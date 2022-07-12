@@ -37,47 +37,35 @@ const MonthlySpendingList = () => {
     }
   }, [userId, dispatch]);
 
+  // filter spending data by month
+  useEffect(() => {
+    if (spendingList && spendingList.length !== 0) {
+      const selectedYear = filterValue.slice(0, 4);
+      const selectedMonth = filterValue.slice(-2);
+
+      setFilteredSpendingList(
+        spendingList.filter((spending) => {
+          return (
+            new Date(spending.createdAt).getFullYear() ===
+              Number(selectedYear) &&
+            new Date(spending.createdAt).getMonth() + 1 ===
+              Number(selectedMonth)
+          );
+        })
+      );
+    }
+  }, [spendingList, filterValue]);
+
   // get monthly total amount
   useEffect(() => {
-    if (
-      spendingList &&
-      spendingList.length > 0 &&
-      currentYear &&
-      currentMonth
-    ) {
-      setFilteredSpendingList(spendingList);
-
-      const currentMonthSpendingArray = spendingList
-        .filter(
-          (spending) =>
-            new Date(spending.createdAt).getFullYear() === currentYear &&
-            new Date(spending.createdAt).getMonth() === currentMonth
-        )
-        .map((spending) => spending.amount);
-
-      const monthlyTotalAmount = currentMonthSpendingArray.reduce(
-        (prev, curr) => prev + curr,
-        0
-      );
+    if (filteredSpendingList && filteredSpendingList.length !== 0) {
+      const monthlyTotalAmount = filteredSpendingList
+        .map((spending) => spending.amount)
+        .reduce((prev, curr) => prev + curr, 0);
 
       setMonthlyTotalSpending(monthlyTotalAmount);
     }
-  }, [spendingList, currentYear, currentMonth]);
-
-  // filter spending data by month
-  useEffect(() => {
-    const selectedYear = filterValue.slice(0, 4);
-    const selectedMonth = filterValue.slice(-2);
-
-    setFilteredSpendingList(
-      spendingList.filter((spending) => {
-        return (
-          new Date(spending.createdAt).getFullYear() === Number(selectedYear) &&
-          new Date(spending.createdAt).getMonth() + 1 === Number(selectedMonth)
-        );
-      })
-    );
-  }, [spendingList, filterValue]);
+  }, [filteredSpendingList]);
 
   if (!spendingList || spendingList.length === 0) {
     return (
