@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { autoLogin, logout } from './reducks/users/operations';
 
 import MyPage from './pages/MyPage';
@@ -15,6 +15,8 @@ const Router = () => {
   const [userId, setUserId] = useState();
   const [expiration, setExpiration] = useState();
   const storedData = JSON.parse(localStorage.getItem('userData'));
+
+  const tokenState = useSelector((state) => state.users.token);
 
   useEffect(() => {
     if (storedData) {
@@ -48,7 +50,7 @@ const Router = () => {
   }, [token, expiration, dispatch]);
 
   let routes;
-  if (token) {
+  if (tokenState) {
     routes = (
       <>
         <Route exact path="/my-page" element={<MyPage />} />

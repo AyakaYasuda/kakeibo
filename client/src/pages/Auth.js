@@ -59,8 +59,8 @@ const Auth = () => {
       password: data.password,
     };
     dispatch(signup(userState));
-    signupFormReset();
     navigate('/my-page');
+    signupFormReset();
   };
 
   const loginHandler = (data) => {
@@ -69,8 +69,8 @@ const Auth = () => {
       password: data.password,
     };
     dispatch(login(userState));
-    loginFormReset();
     navigate('/my-page');
+    loginFormReset();
   };
 
   return (
