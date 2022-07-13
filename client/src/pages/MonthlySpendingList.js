@@ -28,7 +28,7 @@ const MonthlySpendingList = () => {
     if (userId) {
       dispatch(getSpendingByUserId(userId));
     }
-  }, [userId, dispatch]);
+  }, [dispatch]);
 
   // filter spending data by month
   useEffect(() => {

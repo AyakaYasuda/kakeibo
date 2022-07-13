@@ -1,9 +1,9 @@
-const { validationResult } = require("express-validator");
-const mongoose = require("mongoose");
+const { validationResult } = require('express-validator');
+const mongoose = require('mongoose');
 
-const HttpError = require("../models/http-error");
-const Spending = require("../models/spending");
-const User = require("../models/user");
+const HttpError = require('../models/http-error');
+const Spending = require('../models/spending');
+const User = require('../models/user');
 
 const getSpendingById = async (req, res, next) => {
   const spendingId = req.params.sid;
@@ -12,12 +12,12 @@ const getSpendingById = async (req, res, next) => {
   try {
     spending = await Spending.findById(spendingId);
   } catch (err) {
-    const error = new HttpError("Could not find spending...", 500);
+    const error = new HttpError('Could not find spending...', 500);
     return next(error);
   }
 
   if (!spending) {
-    const error = new HttpError("Could not find spending...", 404);
+    const error = new HttpError('Could not find spending...', 404);
     return next(error);
   }
 
@@ -29,26 +29,26 @@ const getSpendingByUserId = async (req, res, next) => {
 
   let userWhoHasSpending;
   try {
-    userWhoHasSpending = await User.findById(userId).populate("spending");
+    userWhoHasSpending = await User.findById(userId).populate('spending');
   } catch (err) {
     const error = new HttpError(
-      "Could not find a user matching with the provided user id",
+      'Could not find a user matching with the provided user id',
       500
     );
   }
 
   if (!userWhoHasSpending || userWhoHasSpending.spending.length === 0) {
     const error = new HttpError(
-      "Could not fetch any spending for the provided user id",
+      'Could not fetch any spending for the provided user id',
       404
     );
     return next(error);
   }
 
   res.json({
-    usersSpending: userWhoHasSpending.spending.map(spending =>
-      spending.toObject({ getters: true })
-    ),
+    usersSpending: userWhoHasSpending.spending
+      .map((spending) => spending.toObject({ getters: true }))
+      .sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1)),
   });
 };
 
@@ -57,13 +57,13 @@ const createSpending = async (req, res, next) => {
 
   if (!errors.isEmpty()) {
     const error = new HttpError(
-      "Invalid inputs were passed. Please check your data",
+      'Invalid inputs were passed. Please check your data',
       422
     );
     return next(error);
   }
 
-  const { category, title, amount, memo, creator } = req.body;
+  const { category, title, amount, memo, creator, createdAt } = req.body;
 
   const createdSpending = new Spending({
     category,
@@ -71,6 +71,7 @@ const createSpending = async (req, res, next) => {
     amount,
     memo,
     creator,
+    createdAt,
   });
 
   let user;
@@ -78,14 +79,14 @@ const createSpending = async (req, res, next) => {
     user = await User.findById(creator);
   } catch (err) {
     const error = new HttpError(
-      "Could not find the user who is authorized and failed to create new spending",
+      'Could not find the user who is authorized and failed to create new spending',
       500
     );
     return next(error);
   }
 
   if (!user) {
-    const error = new HttpError("Could not find the user", 404);
+    const error = new HttpError('Could not find the user', 404);
     return next(error);
   }
 
@@ -98,7 +99,7 @@ const createSpending = async (req, res, next) => {
     await sess.commitTransaction();
   } catch (err) {
     console.log(err);
-    const error = new HttpError("Failed to create new spending...", 500);
+    const error = new HttpError('Failed to create new spending...', 500);
     return next(error);
   }
 
@@ -112,13 +113,13 @@ const updateSpending = async (req, res, next) => {
 
   if (!errors.isEmpty) {
     const error = new HttpError(
-      "Invalid inputs were passed. Please check your data",
+      'Invalid inputs were passed. Please check your data',
       422
     );
     return next(error);
   }
 
-  const { category, title, amount, memo } = req.body;
+  const { category, title, amount, memo, createdAt } = req.body;
 
   const spendingId = req.params.sid;
 
@@ -127,7 +128,7 @@ const updateSpending = async (req, res, next) => {
     spendingToUpdate = await Spending.findById(spendingId);
   } catch (err) {
     const error = new HttpError(
-      "Could not fetch data of spending to update",
+      'Could not fetch data of spending to update',
       500
     );
     return next(error);
@@ -135,7 +136,7 @@ const updateSpending = async (req, res, next) => {
 
   if (!spendingToUpdate) {
     const error = new HttpError(
-      "Could not find the spending for the provided spending id",
+      'Could not find the spending for the provided spending id',
       404
     );
     return next(error);
@@ -144,7 +145,7 @@ const updateSpending = async (req, res, next) => {
   // make sure that creator and login user are matching
   if (spendingToUpdate.creator.toString() !== req.userData.userId) {
     const error = new HttpError(
-      "This user is not allowed to update this spending",
+      'This user is not allowed to update this spending',
       401
     );
     return next(error);
@@ -154,12 +155,13 @@ const updateSpending = async (req, res, next) => {
   spendingToUpdate.title = title;
   spendingToUpdate.amount = amount;
   spendingToUpdate.memo = memo;
+  spendingToUpdate.createdAt = createdAt;
 
   try {
     await spendingToUpdate.save();
   } catch (err) {
     const error = new HttpError(
-      "Failed to update the spending. Please try again",
+      'Failed to update the spending. Please try again',
       500
     );
     return next(error);
@@ -176,10 +178,10 @@ const deleteSpending = async (req, res, next) => {
 
   let spendingToDelete;
   try {
-    spendingToDelete = await Spending.findById(spendingId).populate("creator");
+    spendingToDelete = await Spending.findById(spendingId).populate('creator');
   } catch (err) {
     const error = new HttpError(
-      "Could not fetch data of spending to delete",
+      'Could not fetch data of spending to delete',
       500
     );
     return next(error);
@@ -187,7 +189,7 @@ const deleteSpending = async (req, res, next) => {
 
   if (!spendingToDelete) {
     const error = new HttpError(
-      "Could not find the spending for the provided spending id",
+      'Could not find the spending for the provided spending id',
       404
     );
     return next(error);
@@ -196,7 +198,7 @@ const deleteSpending = async (req, res, next) => {
   // make sure that creator and login user are matching
   if (spendingToDelete.creator.id !== req.userData.userId) {
     const error = new HttpError(
-      "This user is not allowed to delete this spending",
+      'This user is not allowed to delete this spending',
       401
     );
     return next(error);
@@ -214,7 +216,7 @@ const deleteSpending = async (req, res, next) => {
     await sess.commitTransaction();
   } catch (err) {
     const error = new HttpError(
-      "Failed to delete the spending. Please try again",
+      'Failed to delete the spending. Please try again',
       500
     );
     return next(error);

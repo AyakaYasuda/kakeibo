@@ -1,44 +1,45 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   createSpending,
   updateSpending,
-} from "../../reducks/spending/operations";
-import { useNavigate } from "react-router-dom";
+} from '../../reducks/spending/operations';
+import { useNavigate } from 'react-router-dom';
 
-import Button from "../UI/Button";
-import classes from "./SpendingForm.module.scss";
+import Button from '../UI/Button';
+import classes from './SpendingForm.module.scss';
 
 const spendingSchema = yup.object().shape({
   category: yup.string().required(),
   title: yup.string().required(),
   amount: yup.number().positive().required(),
   memo: yup.string(),
+  createdAt: yup.date().required(),
 });
 
 const options = [
-  "Entertainment",
-  "Shopping",
-  "Food & Dining",
-  "Health & Fitness",
-  "Auto & Transport",
-  "Personal Care",
-  "Utilities",
-  "Travel",
-  "Education",
-  "Kids",
-  "Investments",
-  "Others",
+  'Entertainment',
+  'Shopping',
+  'Food & Dining',
+  'Health & Fitness',
+  'Auto & Transport',
+  'Personal Care',
+  'Utilities',
+  'Travel',
+  'Education',
+  'Kids',
+  'Investments',
+  'Others',
 ];
 
 const SpendingForm = ({ preloadedValues, type, spendingId }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loginUserId = useSelector(state => state.users.uid);
-  const token = useSelector(state => state.users.token);
+  const loginUserId = useSelector((state) => state.users.uid);
+  const token = useSelector((state) => state.users.token);
   const {
     register,
     handleSubmit,
@@ -50,57 +51,74 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
   });
 
   useEffect(() => {
-    setValue("category", preloadedValues?.category);
-    setValue("title", preloadedValues?.title);
-    setValue("amount", preloadedValues?.amount);
-    setValue("memo", preloadedValues?.memo);
+    setValue('category', preloadedValues?.category);
+    setValue('title', preloadedValues?.title);
+    setValue('amount', preloadedValues?.amount);
+    setValue('memo', preloadedValues?.memo);
+    setValue('createdAt', preloadedValues?.createdAt);
   }, [preloadedValues]);
 
-  const spendingCreateHandler = data => {
+  const createSpendingHandler = (data) => {
     const spending = {
       category: data.category,
       title: data.title,
       amount: data.amount,
       memo: data.memo,
       creator: loginUserId,
+      createdAt: new Date(data.createdAt).toISOString(),
     };
     dispatch(createSpending(spending, token));
     clearFormHandler();
-    navigate("/spending");
+    navigate('/spending');
   };
 
-  const spendingUpdateHandler = data => {
+  const updateSpendingHandler = (data) => {
     const spending = {
       id: spendingId,
       category: data.category,
       title: data.title,
       amount: data.amount,
       memo: data.memo,
+      createdAt: new Date(data.createdAt).toISOString(),
     };
     dispatch(updateSpending(spendingId, spending, token));
     clearFormHandler();
-    navigate("/spending");
+    navigate('/spending');
   };
 
   const clearFormHandler = () => {
     reset();
-    navigate("/spending");
+    navigate('/spending');
   };
 
   const submitHandler =
-    type === "create" ? spendingCreateHandler : spendingUpdateHandler;
+    type === 'create' ? createSpendingHandler : updateSpendingHandler;
 
   return (
     <>
       <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
-        <label className={classes["form-label"]} htmlFor="category">
+        <label className={classes['form-label']} htmlFor="createDate">
+          Date
+        </label>
+        <input
+          className={classes['form-input']}
+          type="date"
+          id="createDate"
+          name="createDate"
+          {...register('createdAt')}
+          min="2021-01-01"
+          max="2023-12-31"
+        />
+        <p>{errors.createdAt?.message}</p>
+
+        <label className={classes['form-label']} htmlFor="category">
           Category
         </label>
         <select
-          className={classes["form-input"]}
+          className={classes['form-input']}
           name="category"
           id="category"
-          {...register("category")}
+          {...register('category')}
         >
           <option value="" disabled hidden>
             Select category
@@ -113,40 +131,40 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
         </select>
         <p>{errors.category?.message}</p>
 
-        <label className={classes["form-label"]} htmlFor="title">
+        <label className={classes['form-label']} htmlFor="title">
           Title
         </label>
         <input
-          className={classes["form-input"]}
+          className={classes['form-input']}
           type="text"
           name="title"
           id="title"
-          {...register("title")}
+          {...register('title')}
         />
         <p>{errors.title?.message}</p>
 
-        <label className={classes["form-label"]} htmlFor="amount">
+        <label className={classes['form-label']} htmlFor="amount">
           Amount
         </label>
         <input
-          className={classes["form-input"]}
+          className={classes['form-input']}
           type="number"
           step="0.01"
           name="amount"
           id="amount"
-          {...register("amount")}
+          {...register('amount')}
         />
         <p>{errors.amount?.message}</p>
 
-        <label className={classes["form-label"]} htmlFor="memo">
+        <label className={classes['form-label']} htmlFor="memo">
           Memo
         </label>
         <textarea
-          className={classes["form-input"]}
+          className={classes['form-input']}
           name="memo"
           rows="5"
           id="memo"
-          {...register("memo")}
+          {...register('memo')}
         />
         <p>{errors.memo?.message}</p>
 

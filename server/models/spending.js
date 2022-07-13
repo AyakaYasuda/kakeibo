@@ -11,7 +11,7 @@ const spendingSchema = new Schema({
   createdAt: {
     type: Date,
     default: () => Date.now(),
-    immutable: true,
+    immutable: false,
   },
 });
 
