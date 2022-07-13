@@ -11,24 +11,16 @@ import SpendingEdit from './pages/SpendingEdit';
 
 const Router = () => {
   const dispatch = useDispatch();
-  const [token, setToken] = useState();
-  const [userId, setUserId] = useState();
-  const [expiration, setExpiration] = useState();
-  const storedData = JSON.parse(localStorage.getItem('userData'));
+  const [storedData, setStoredData] = useState();
+  const token = storedData?.token;
+  const userId = storedData?.uid;
+  const expiration = storedData?.expiration;
 
-  const tokenState = useSelector((state) => state.users.token);
+  const { isLoggedIn } = useSelector((state) => state.users);
 
   useEffect(() => {
-    if (storedData) {
-      setToken(storedData.token);
-      setUserId(storedData.uid);
-      setExpiration(storedData.expiration);
-    } else {
-      setToken(null);
-      setUserId(null);
-      setExpiration(null);
-    }
-  }, [storedData]);
+    setStoredData(JSON.parse(localStorage.getItem('userData')));
+  }, [isLoggedIn]);
 
   // auto login
   useEffect(() => {
@@ -50,7 +42,7 @@ const Router = () => {
   }, [token, expiration, dispatch]);
 
   let routes;
-  if (tokenState) {
+  if (token) {
     routes = (
       <>
         <Route exact path="/my-page" element={<MyPage />} />

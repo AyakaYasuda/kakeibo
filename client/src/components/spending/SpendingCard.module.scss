@@ -1,4 +1,4 @@
-@import "../../mixin.scss";
+@import '../../mixin.scss';
 
 .card {
   background-color: #fff;
@@ -53,6 +53,15 @@
     width: 100%;
     min-height: 11.5rem;
     position: relative;
+  }
+
+  &-info small {
+    color: $primary-color;
+    margin: 2rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 1rem;
   }
 
   &-info p {
