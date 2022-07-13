@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListSquares, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
@@ -6,6 +7,8 @@ import { Link } from 'react-router-dom';
 import classes from './MyPage.module.scss';
 
 const MyPage = () => {
+  const { spendingList } = useSelector((state) => state.spending);
+
   return (
     <div className="section-container center-col">
       <div>

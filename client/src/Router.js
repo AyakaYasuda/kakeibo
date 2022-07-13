@@ -8,6 +8,7 @@ import Auth from './pages/Auth';
 import MonthlySpendingList from './pages/MonthlySpendingList';
 import NewSpending from './pages/NewSpending';
 import SpendingEdit from './pages/SpendingEdit';
+import Settings from './pages/Settings';
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const Router = () => {
     routes = (
       <>
         <Route exact path="/my-page" element={<MyPage />} />
+        <Route exact path="/settings" element={<Settings />} />
         <Route exact path="/spending/new" element={<NewSpending />} />
         <Route exact path="/spending/edit/:id" element={<SpendingEdit />} />
         <Route exact path="/spending" element={<MonthlySpendingList />} />

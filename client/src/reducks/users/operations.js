@@ -58,7 +58,6 @@ export const login = (userState, expirationDate) => {
 };
 
 export const autoLogin = (userId, token, expirationDate) => {
-  console.log('auto login');
   return async (dispatch) => {
     await axios
       .get(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`)
@@ -85,7 +84,6 @@ export const autoLogin = (userId, token, expirationDate) => {
 };
 
 export const logout = () => {
-  console.log('log out');
   return async (dispatch) => {
     dispatch(
       logoutAction({
