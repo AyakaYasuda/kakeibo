@@ -42,7 +42,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
     setValue('amount', preloadedValues?.amount);
     setValue('memo', preloadedValues?.memo);
     setValue('createdAt', preloadedValues?.createdAt);
-  }, [preloadedValues]);
+  }, [preloadedValues, setValue]);
 
   const createSpendingHandler = (data) => {
     const spending = {

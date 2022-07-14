@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { signupAction, loginAction, logoutAction } from './actions';
+import {
+  signupAction,
+  loginAction,
+  logoutAction,
+  addBudgetAction,
+} from './actions';
 
 export const signup = (userState) => {
   return async (dispatch) => {
@@ -96,5 +101,23 @@ export const logout = () => {
       })
     );
     localStorage.removeItem('userData');
+  };
+};
+
+export const addBudget = (userId, token, budget) => {
+  console.log(budget);
+  return async (dispatch) => {
+    await axios
+      .patch(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`, budget, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        dispatch(addBudgetAction(response.data.budget));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };

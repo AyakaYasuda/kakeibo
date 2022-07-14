@@ -21,3 +21,11 @@ export const logoutAction = (user) => {
     payload: user,
   };
 };
+
+export const ADD_BUDGET = 'ADD_BUDGET';
+export const addBudgetAction = (budget) => {
+  return {
+    type: 'ADD_BUDGET',
+    payload: { budget },
+  };
+};

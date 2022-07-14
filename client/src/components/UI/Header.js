@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../reducks/users/operations';
 
@@ -18,7 +19,8 @@ const Header = () => {
       <a href="/">kakeibo</a>
       {isLoggedIn && (
         <div className={classes.menu}>
-          <a href="/my-page">My Page</a>
+          <Link to="/settings">Settings</Link>
+          <Link to="/my-page">My page</Link>
           <Button onClick={logoutHandler} size="small">
             LOGOUT
           </Button>
