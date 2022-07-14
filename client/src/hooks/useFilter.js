@@ -1,14 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getSpendingByUserId } from '../reducks/spending/operations';
 
 const useFilter = (filterValue) => {
+  const dispatch = useDispatch();
+  const userId = useSelector((state) => state.users.uid);
   const spendingList = useSelector((state) => state.spending.spendingList);
   const [monthlyTotalSpending, setMonthlyTotalSpending] = useState();
   const [filteredSpendingList, setFilteredSpendingList] = useState([]);
+  console.log('spendingList', spendingList);
+
+  useEffect(() => {
+    if (userId) {
+      console.log('run');
+      dispatch(getSpendingByUserId(userId));
+    }
+  }, [dispatch, userId]);
 
   // filter spending data by month
   useEffect(() => {
-    console.log(filterValue);
     if (spendingList && spendingList.length !== 0) {
       const selectedYear = filterValue.slice(0, 4);
       const selectedMonth = filterValue.slice(-2);
@@ -36,6 +46,8 @@ const useFilter = (filterValue) => {
       setMonthlyTotalSpending(monthlyTotalAmount);
     }
   }, [filteredSpendingList]);
+
+  console.log(filteredSpendingList, monthlyTotalSpending);
 
   return { filteredSpendingList, monthlyTotalSpending };
 };

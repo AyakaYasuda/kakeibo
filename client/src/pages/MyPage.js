@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import useFilter from '../hooks/useFilter';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListSquares, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
@@ -7,10 +7,20 @@ import { Link } from 'react-router-dom';
 import classes from './MyPage.module.scss';
 
 const MyPage = () => {
-  const { spendingList } = useSelector((state) => state.spending);
+  const currentYearAndMonth =
+    new Date().getFullYear().toString() +
+    '-' +
+    ('0' + (new Date().getMonth() + 1).toString()).slice(-2);
+
+  const { monthlyTotalSpending } = useFilter(currentYearAndMonth);
 
   return (
     <div className="section-container center-col">
+      <div>
+        <FontAwesomeIcon icon={faCirclePlus} className={classes['icon-add']} />
+        <Link to="/spending/new">Create Spending</Link>
+      </div>
+      <p>${monthlyTotalSpending}</p>
       <div>
         <FontAwesomeIcon
           icon={faListSquares}
@@ -19,10 +29,6 @@ const MyPage = () => {
         <Link to="/spending">Monthly Spending List</Link>
       </div>
       <div className="spacer-sm" />
-      <div>
-        <FontAwesomeIcon icon={faCirclePlus} className={classes['icon-add']} />
-        <Link to="/spending/new">Create Spending</Link>
-      </div>
     </div>
   );
 };
