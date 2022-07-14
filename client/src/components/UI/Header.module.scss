@@ -1,19 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
 @import '../../mixin.scss';
 
 .header {
   width: 100%;
   background-color: $primary-color;
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
+  padding: 1.5rem;
+
+  &-container {
+    @include max-width;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    @include media-sm {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
 
   a {
     color: white;
     font-size: 2rem;
+    font-family: 'Fredoka One', cursive;
+    letter-spacing: 0.5rem;
   }
 
   a:hover {
-    opacity: 0.9;
+    transform: translateY(-0.25rem);
+    color: white;
+    transition-duration: 300ms;
   }
 }
 
@@ -21,10 +39,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 1rem;
+
+  @include media-sm {
+    padding-top: 0;
+  }
 
   a {
     color: white;
     font-size: 1.2rem;
-    padding-right: 1rem;
+    padding-right: 2rem;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.2rem;
   }
 }

@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;800&display=swap");
-@import "./mixin.scss";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+@import './mixin.scss';
 
 * {
   box-sizing: border-box;
@@ -8,7 +8,7 @@
 }
 
 html {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 62.5%; // 10px/16px = 62.5% -> 1rem = 10px
   background-color: #fcfeff;
 }
@@ -55,6 +55,13 @@ a {
 
 button {
   cursor: pointer;
+  letter-spacing: 0.2rem;
+  text-transform: uppercase;
+
+  &:hover {
+    transform: translateY(-0.25rem);
+    transition-duration: 300ms;
+  }
 }
 
 .text-secondary {

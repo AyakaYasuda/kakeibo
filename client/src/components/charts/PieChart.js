@@ -32,9 +32,9 @@ const PieChart = ({ data }) => {
                 {
                   target: 'data',
                   mutation: ({ style }) => {
-                    return style.fill === '#c43a31'
+                    return style.fill === '#f07167'
                       ? null
-                      : { style: { fill: '#c43a31' } };
+                      : { style: { fill: '#f07167' } };
                   },
                 },
                 {

@@ -34,8 +34,6 @@ const Status = () => {
     }
   }, [monthlyTotalSpending, budget]);
 
-  console.log(status, image);
-
   return (
     <>
       <div>{status}</div>

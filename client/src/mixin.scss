@@ -27,3 +27,8 @@ $accent-color: #f07167;
     @content;
   }
 }
+
+@mixin max-width {
+  max-width: 1440px;
+  margin: 0 auto;
+}
