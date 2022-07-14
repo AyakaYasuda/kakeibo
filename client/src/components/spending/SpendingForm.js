@@ -95,7 +95,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
           min="2021-01-01"
           max="2023-12-31"
         />
-        <p>{errors.createdAt?.message}</p>
+        {errors.createdAt?.message && <p>date is a required field</p>}
 
         <label className={classes['form-label']} htmlFor="category">
           Category

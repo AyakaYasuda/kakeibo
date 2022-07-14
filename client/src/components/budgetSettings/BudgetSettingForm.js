@@ -60,7 +60,7 @@ const BudgetSettingForm = ({ setIsEditing }) => {
         step="0.01"
         {...register('budget')}
       />
-      <p>{errors.budget?.message}</p>
+      {errors.budget?.message && <p>budget is a required field</p>}
       {preloadedValue ? (
         <button type="submit">Update your budget</button>
       ) : (
