@@ -10,7 +10,7 @@ export const SpendingReducer = (state = initialState.spending, action) => {
 
     case Actions.CREATE_SPENDING:
       return {
-        spendingList: [...state.spendingList, action.payload],
+        spendingList: [action.payload, ...state.spendingList],
       };
 
     case Actions.DELETE_SPENDING:

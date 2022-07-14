@@ -1,13 +1,62 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import useFilter from '../hooks/useFilter';
+import { useSelector, useDispatch } from 'react-redux';
+import { getBudgetById } from '../reducks/users/operations';
 
+import categories from '../util/categories';
+import PieChart from '../components/charts/PieChart';
+import Status from '../components/spending/Status';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListSquares, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import classes from './MyPage.module.scss';
 
 const MyPage = () => {
+  const dispatch = useDispatch();
+  const { uid } = useSelector((state) => state.users);
+  const currentYearAndMonth =
+    new Date().getFullYear().toString() +
+    '-' +
+    ('0' + (new Date().getMonth() + 1).toString()).slice(-2);
+
+  const { filteredSpendingList, monthlyTotalSpending } =
+    useFilter(currentYearAndMonth);
+
+  useEffect(() => {
+    if (uid) {
+      dispatch(getBudgetById(uid));
+    }
+  }, [uid]);
+
+  const createChartData = () => {
+    // 1. create category map from categories
+    const categoryMap = new Map();
+    categories.map((category, index) => categoryMap.set(category, index));
+
+    // 2. create an array of spending amount
+    const spendingAmountArr = new Array(categories.length).fill(0);
+    for (const spending of filteredSpendingList) {
+      const idx = categoryMap.get(spending.category);
+      spendingAmountArr[idx] += spending.amount;
+    }
+
+    // 3. create data tailored to chart
+    return categories
+      .map((category) => ({
+        x: category,
+        y: spendingAmountArr[categoryMap.get(category)],
+      }))
+      .filter((item) => item.y !== 0);
+  };
+
   return (
     <div className="section-container center-col">
+      <div>
+        <FontAwesomeIcon icon={faCirclePlus} className={classes['icon-add']} />
+        <Link to="/spending/new">Create Spending</Link>
+      </div>
+      <Status />
+      <p>${monthlyTotalSpending}</p>
       <div>
         <FontAwesomeIcon
           icon={faListSquares}
@@ -15,11 +64,8 @@ const MyPage = () => {
         />
         <Link to="/spending">Monthly Spending List</Link>
       </div>
+      <PieChart data={createChartData()} />
       <div className="spacer-sm" />
-      <div>
-        <FontAwesomeIcon icon={faCirclePlus} className={classes['icon-add']} />
-        <Link to="/spending/new">Create Spending</Link>
-      </div>
     </div>
   );
 };

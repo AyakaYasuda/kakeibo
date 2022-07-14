@@ -29,7 +29,7 @@ const SpendingEdit = () => {
     setCreatedAt(
       new Date(identifiedSpending.createdAt).toISOString().slice(0, 10)
     );
-  }, []);
+  }, [spendingId, spendingList]);
 
   const preloadedValues = {
     category: category,

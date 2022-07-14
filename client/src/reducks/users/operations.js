@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { signupAction, loginAction, logoutAction } from './actions';
+import {
+  signupAction,
+  loginAction,
+  logoutAction,
+  addBudgetAction,
+  getBudgetByIdAction,
+} from './actions';
 
 export const signup = (userState) => {
   return async (dispatch) => {
@@ -58,7 +64,6 @@ export const login = (userState, expirationDate) => {
 };
 
 export const autoLogin = (userId, token, expirationDate) => {
-  console.log('auto login');
   return async (dispatch) => {
     await axios
       .get(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`)
@@ -85,7 +90,6 @@ export const autoLogin = (userId, token, expirationDate) => {
 };
 
 export const logout = () => {
-  console.log('log out');
   return async (dispatch) => {
     dispatch(
       logoutAction({
@@ -95,8 +99,40 @@ export const logout = () => {
         email: null,
         password: null,
         token: null,
+        budget: null,
       })
     );
     localStorage.removeItem('userData');
+  };
+};
+
+export const addBudget = (userId, token, budget) => {
+  return async (dispatch) => {
+    await axios
+      .patch(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`, budget, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        dispatch(addBudgetAction(response.data.budget));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const getBudgetById = (userId) => {
+  return async (dispatch) => {
+    await axios
+      .get(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`)
+      .then((response) => {
+        const { budget } = response.data.user;
+        dispatch(getBudgetByIdAction({ budget: budget }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };

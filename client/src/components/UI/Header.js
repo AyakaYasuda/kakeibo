@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { logout } from '../../reducks/users/operations';
 
 import Button from './Button';
@@ -8,7 +8,6 @@ import classes from './Header.module.scss';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { isLoggedIn } = useSelector((state) => state.users);
 
   const logoutHandler = () => {
@@ -19,9 +18,13 @@ const Header = () => {
     <div className={classes.header}>
       <a href="/">kakeibo</a>
       {isLoggedIn && (
-        <Button onClick={logoutHandler} size="small">
-          LOGOUT
-        </Button>
+        <div className={classes.menu}>
+          <Link to="/settings">Settings</Link>
+          <Link to="/my-page">My page</Link>
+          <Button onClick={logoutHandler} size="small">
+            LOGOUT
+          </Button>
+        </div>
       )}
     </div>
   );
