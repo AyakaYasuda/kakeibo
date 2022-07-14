@@ -8,11 +8,9 @@ const useFilter = (filterValue) => {
   const spendingList = useSelector((state) => state.spending.spendingList);
   const [monthlyTotalSpending, setMonthlyTotalSpending] = useState();
   const [filteredSpendingList, setFilteredSpendingList] = useState([]);
-  console.log('spendingList', spendingList);
 
   useEffect(() => {
     if (userId) {
-      console.log('run');
       dispatch(getSpendingByUserId(userId));
     }
   }, [dispatch, userId]);
@@ -46,8 +44,6 @@ const useFilter = (filterValue) => {
       setMonthlyTotalSpending(monthlyTotalAmount);
     }
   }, [filteredSpendingList]);
-
-  console.log(filteredSpendingList, monthlyTotalSpending);
 
   return { filteredSpendingList, monthlyTotalSpending };
 };

@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useFilter from '../hooks/useFilter';
 
+import categories from '../util/categories';
+import PieChart from '../components/charts/PieChart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListSquares, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -12,7 +14,29 @@ const MyPage = () => {
     '-' +
     ('0' + (new Date().getMonth() + 1).toString()).slice(-2);
 
-  const { monthlyTotalSpending } = useFilter(currentYearAndMonth);
+  const { filteredSpendingList, monthlyTotalSpending } =
+    useFilter(currentYearAndMonth);
+
+  const createChartData = () => {
+    // 1. create category map from categories
+    const categoryMap = new Map();
+    categories.map((category, index) => categoryMap.set(category, index));
+
+    // 2. create an array of spending amount
+    const spendingAmountArr = new Array(categories.length).fill(0);
+    for (const spending of filteredSpendingList) {
+      const idx = categoryMap.get(spending.category);
+      spendingAmountArr[idx] += spending.amount;
+    }
+
+    // 3. create data tailored to chart
+    return categories
+      .map((category) => ({
+        x: category,
+        y: spendingAmountArr[categoryMap.get(category)],
+      }))
+      .filter((item) => item.y !== 0);
+  };
 
   return (
     <div className="section-container center-col">
@@ -28,6 +52,7 @@ const MyPage = () => {
         />
         <Link to="/spending">Monthly Spending List</Link>
       </div>
+      <PieChart data={createChartData()} />
       <div className="spacer-sm" />
     </div>
   );

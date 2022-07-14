@@ -8,6 +8,7 @@ import {
   updateSpending,
 } from '../../reducks/spending/operations';
 import { useNavigate } from 'react-router-dom';
+import categories from '../../util/categories';
 
 import Button from '../UI/Button';
 import classes from './SpendingForm.module.scss';
@@ -19,21 +20,6 @@ const spendingSchema = yup.object().shape({
   memo: yup.string(),
   createdAt: yup.date().required(),
 });
-
-const options = [
-  'Entertainment',
-  'Shopping',
-  'Food & Dining',
-  'Health & Fitness',
-  'Auto & Transport',
-  'Personal Care',
-  'Utilities',
-  'Travel',
-  'Education',
-  'Kids',
-  'Investments',
-  'Others',
-];
 
 const SpendingForm = ({ preloadedValues, type, spendingId }) => {
   const navigate = useNavigate();
@@ -123,9 +109,9 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
           <option value="" disabled hidden>
             Select category
           </option>
-          {options.map((option, index) => (
-            <option key={index} value={option}>
-              {option}
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
             </option>
           ))}
         </select>
