@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useFilter from '../hooks/useFilter';
+import { useSelector, useDispatch } from 'react-redux';
+import { getBudgetById } from '../reducks/users/operations';
 
 import categories from '../util/categories';
 import PieChart from '../components/charts/PieChart';
+import Status from '../components/spending/Status';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListSquares, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import classes from './MyPage.module.scss';
 
 const MyPage = () => {
+  const dispatch = useDispatch();
+  const { uid } = useSelector((state) => state.users);
   const currentYearAndMonth =
     new Date().getFullYear().toString() +
     '-' +
@@ -16,6 +21,12 @@ const MyPage = () => {
 
   const { filteredSpendingList, monthlyTotalSpending } =
     useFilter(currentYearAndMonth);
+
+  useEffect(() => {
+    if (uid) {
+      dispatch(getBudgetById(uid));
+    }
+  }, [uid]);
 
   const createChartData = () => {
     // 1. create category map from categories
@@ -44,6 +55,7 @@ const MyPage = () => {
         <FontAwesomeIcon icon={faCirclePlus} className={classes['icon-add']} />
         <Link to="/spending/new">Create Spending</Link>
       </div>
+      <Status />
       <p>${monthlyTotalSpending}</p>
       <div>
         <FontAwesomeIcon
