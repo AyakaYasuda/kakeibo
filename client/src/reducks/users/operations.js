@@ -4,6 +4,7 @@ import {
   loginAction,
   logoutAction,
   addBudgetAction,
+  getBudgetByIdAction,
 } from './actions';
 
 export const signup = (userState) => {
@@ -98,6 +99,7 @@ export const logout = () => {
         email: null,
         password: null,
         token: null,
+        budget: null,
       })
     );
     localStorage.removeItem('userData');
@@ -105,7 +107,6 @@ export const logout = () => {
 };
 
 export const addBudget = (userId, token, budget) => {
-  console.log(budget);
   return async (dispatch) => {
     await axios
       .patch(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`, budget, {
@@ -115,6 +116,20 @@ export const addBudget = (userId, token, budget) => {
       })
       .then((response) => {
         dispatch(addBudgetAction(response.data.budget));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const getBudgetById = (userId) => {
+  return async (dispatch) => {
+    await axios
+      .get(`${process.env.REACT_APP_BACKEND_API}/users/${userId}`)
+      .then((response) => {
+        const { budget } = response.data.user;
+        dispatch(getBudgetByIdAction({ budget: budget }));
       })
       .catch((err) => {
         console.log(err);

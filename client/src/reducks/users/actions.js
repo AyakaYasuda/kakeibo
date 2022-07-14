@@ -29,3 +29,11 @@ export const addBudgetAction = (budget) => {
     payload: { budget },
   };
 };
+
+export const FETCH_BUDGET = 'FETCH_BUDGET';
+export const getBudgetByIdAction = (user) => {
+  return {
+    type: 'FETCH_BUDGET',
+    payload: user,
+  };
+};

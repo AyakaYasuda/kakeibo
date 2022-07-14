@@ -10,7 +10,7 @@ const budgetSchema = yup.object().shape({
   budget: yup.number().positive().required(),
 });
 
-const BudgetSettingForm = () => {
+const BudgetSettingForm = ({ setIsEditing }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -18,6 +18,7 @@ const BudgetSettingForm = () => {
     token,
     budget: preloadedValue,
   } = useSelector((state) => state.users);
+
   const {
     register,
     handleSubmit,
@@ -29,7 +30,9 @@ const BudgetSettingForm = () => {
   });
 
   useEffect(() => {
-    setValue('budget', preloadedValue?.budget);
+    if (preloadedValue) {
+      setValue('budget', preloadedValue);
+    }
   }, [preloadedValue]);
 
   const submitHandler = (data) => {
@@ -38,6 +41,7 @@ const BudgetSettingForm = () => {
       console.log(budget, typeof budget);
       dispatch(addBudget(uid, token, budget));
       clearFormHandler();
+      setIsEditing(false);
     }
   };
 
@@ -57,7 +61,12 @@ const BudgetSettingForm = () => {
         {...register('budget')}
       />
       <p>{errors.budget?.message}</p>
-      <button type="submit">Add your budget</button>
+      {preloadedValue ? (
+        <button type="submit">Update your budget</button>
+      ) : (
+        <button type="submit">Add your budget</button>
+      )}
+      <button onClick={() => setIsEditing(false)}>Cancel</button>
     </form>
   );
 };
