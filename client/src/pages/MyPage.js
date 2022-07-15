@@ -55,14 +55,18 @@ const MyPage = () => {
   let content;
   if (!monthlyTotalSpending) {
     content = <LoadingSpinner />;
-  } else if (monthlyTotalSpending && monthlyTotalSpending.length === 0) {
+  }
+
+  if (monthlyTotalSpending && monthlyTotalSpending.length === 0) {
     content = (
       <>
         {!budget && <NoBudget />}
         <NoSpending />
       </>
     );
-  } else {
+  }
+
+  if (monthlyTotalSpending && monthlyTotalSpending.length !== 0) {
     content = (
       <>
         {!budget && <NoBudget />}

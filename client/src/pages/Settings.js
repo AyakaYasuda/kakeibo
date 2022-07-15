@@ -17,6 +17,8 @@ const Settings = () => {
   const [isEditing, setIsEditing] = useState(false);
   const { isModalShown, message, closeModalHandler } = useUsersErrorModal();
 
+  console.log(typeof budget.toFixed(2));
+
   useEffect(() => {
     if (uid) {
       dispatch(getBudgetById(uid));
@@ -36,7 +38,7 @@ const Settings = () => {
         {budget ? (
           <div className={classes.budget}>
             <h2>Your monthly budget</h2>
-            <h1>${Number(budget.toFixed(2))?.toLocaleString()}</h1>
+            <h1>${Number(budget?.toFixed(2)).toLocaleString()}</h1>
             <img src={FistedHand} alt="fisted-hand" className={classes.image} />
             {!isEditing && (
               <Button size="small" onClick={() => setIsEditing(true)}>

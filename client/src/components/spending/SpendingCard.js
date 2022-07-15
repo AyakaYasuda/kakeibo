@@ -45,7 +45,7 @@ const SpendingCard = ({ data }) => {
         <h2 className="text-secondary">{data.title}</h2>
         <p>{data.memo}</p>
         <div className={classes['card-btn']}>
-          {`$${Number(data.amount.toFixed(2)).toLocaleString()}`}
+          {`$${data.amount.toFixed(2).toLocaleString()}`}
         </div>
       </div>
     </div>
