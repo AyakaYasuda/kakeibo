@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import useFilter from '../hooks/useFilter';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,12 +7,17 @@ import { getBudgetById } from '../reducks/users/operations';
 import categories from '../util/categories';
 import PieChart from '../components/charts/PieChart';
 import Status from '../components/spending/Status';
-import NoSpending from '../components/spending/NoSpending';
-import NoBudget from '../components/spending/NoBudget';
+// import NoSpending from '../components/spending/NoSpending';
+// import NoBudget from '../components/spending/NoBudget';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListSquares, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import classes from './MyPage.module.scss';
+
+const NoSpending = React.lazy(() =>
+  import('../components/spending/NoSpending')
+);
+const NoBudget = React.lazy(() => import('../components/spending/NoBudget'));
 
 const MyPage = () => {
   const dispatch = useDispatch();
@@ -58,6 +63,7 @@ const MyPage = () => {
   }
 
   if (monthlyTotalSpending && monthlyTotalSpending.length === 0) {
+    console.log('run');
     content = (
       <>
         {!budget && <NoBudget />}
@@ -106,7 +112,11 @@ const MyPage = () => {
     );
   }
 
-  return <div className={classes['wrapper']}>{content}</div>;
+  return (
+    <div className={classes['wrapper']}>
+      <Suspense fallback={<LoadingSpinner />}>{content}</Suspense>
+    </div>
+  );
 };
 
 export default MyPage;

@@ -111,6 +111,7 @@ export const autoLogin = (userId, token, expirationDate) => {
 
 export const logout = () => {
   return async (dispatch) => {
+    localStorage.removeItem('userData');
     dispatch(
       logoutAction({
         isLoggedIn: false,
@@ -122,7 +123,6 @@ export const logout = () => {
         budget: null,
       })
     );
-    localStorage.removeItem('userData');
   };
 };
 
