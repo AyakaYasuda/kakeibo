@@ -119,6 +119,10 @@ export const logout = () => {
         password: null,
         token: null,
         budget: null,
+        error: {
+          status: null,
+          message: null,
+        },
       })
     );
     localStorage.removeItem('userData');
