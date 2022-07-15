@@ -55,7 +55,7 @@ $accent-color: #f07167;
 }
 
 @mixin section-container {
-  margin: 2rem auto;
+  margin: 0 auto;
   max-width: 400px;
   padding: 1rem;
   height: auto;
@@ -63,7 +63,7 @@ $accent-color: #f07167;
 }
 
 @mixin section-container-wide {
-  margin: 2rem auto;
+  margin: 0 auto;
   max-width: 1200px;
   padding: 1rem;
   height: auto;

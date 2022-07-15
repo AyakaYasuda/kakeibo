@@ -11,7 +11,7 @@ const NoBudget = () => {
       <div className={classes.message}>
         <h2>Set your personal monthly budget</h2>
         <Button size="small" to="/settings">
-          Set budget
+          Go to settings
         </Button>
       </div>
     </div>
