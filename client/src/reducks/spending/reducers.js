@@ -5,16 +5,19 @@ export const SpendingReducer = (state = initialState.spending, action) => {
   switch (action.type) {
     case Actions.FETCH_USERS_SPENDING:
       return {
+        ...state,
         spendingList: [...action.payload],
       };
 
     case Actions.CREATE_SPENDING:
       return {
+        ...state,
         spendingList: [action.payload, ...state.spendingList],
       };
 
     case Actions.DELETE_SPENDING:
       return {
+        ...state,
         spendingList: state.spendingList.filter(
           (spending) => spending.id !== action.payload
         ),
@@ -30,6 +33,7 @@ export const SpendingReducer = (state = initialState.spending, action) => {
         (spending) => spending.id !== action.payload.id
       );
       return {
+        ...state,
         spendingList: [...remainingSpending, identifiedSpending],
       };
 

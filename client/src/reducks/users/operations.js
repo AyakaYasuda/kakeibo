@@ -121,7 +121,7 @@ export const logout = () => {
         budget: null,
         error: {
           status: null,
-          message: null,
+          message: '',
         },
       })
     );

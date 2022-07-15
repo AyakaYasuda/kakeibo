@@ -7,7 +7,6 @@ import {
   createSpending,
   updateSpending,
 } from '../../reducks/spending/operations';
-import { useNavigate } from 'react-router-dom';
 import categories from '../../util/categories';
 
 import Button from '../UI/Button';
@@ -22,7 +21,6 @@ const spendingSchema = yup.object().shape({
 });
 
 const SpendingForm = ({ preloadedValues, type, spendingId }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const loginUserId = useSelector((state) => state.users.uid);
   const token = useSelector((state) => state.users.token);
@@ -55,7 +53,6 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
     };
     dispatch(createSpending(spending, token));
     clearFormHandler();
-    navigate('/spending');
   };
 
   const updateSpendingHandler = (data) => {
@@ -69,12 +66,10 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
     };
     dispatch(updateSpending(spendingId, spending, token));
     clearFormHandler();
-    navigate('/spending');
   };
 
   const clearFormHandler = () => {
     reset();
-    navigate('/spending');
   };
 
   const submitHandler =

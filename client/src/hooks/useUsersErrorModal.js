@@ -7,14 +7,16 @@ const useUsersErrorModal = () => {
   const { status, message } = error;
 
   useEffect(() => {
-    if (error) {
+    if (message.length !== 0) {
       setIsModalShown(true);
     }
-  }, [error]);
+  }, [message]);
 
   const closeModalHandler = () => {
     setIsModalShown(false);
   };
+
+  console.log(error, isModalShown);
 
   return { isModalShown, status, message, closeModalHandler };
 };
