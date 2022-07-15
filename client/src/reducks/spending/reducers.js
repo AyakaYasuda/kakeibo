@@ -33,6 +33,15 @@ export const SpendingReducer = (state = initialState.spending, action) => {
         spendingList: [...remainingSpending, identifiedSpending],
       };
 
+    case Actions.SET_ERROR:
+      return {
+        ...state,
+        error: {
+          status: action.payload.status,
+          message: action.payload.message,
+        },
+      };
+
     default:
       return state;
   }

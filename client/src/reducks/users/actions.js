@@ -37,3 +37,11 @@ export const getBudgetByIdAction = (user) => {
     payload: user,
   };
 };
+
+export const SET_ERROR = 'SET_ERROR';
+export const setErrorAction = (error) => {
+  return {
+    type: 'SET_ERROR',
+    payload: error,
+  };
+};

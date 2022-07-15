@@ -1,60 +1,79 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   fetchUsersSpendingAction,
   createSpendingAction,
   deleteSpendingAction,
   updateSpendingAction,
-} from "./actions";
+  setErrorAction,
+} from './actions';
 
-export const getSpendingByUserId = userId => {
-  return async dispatch => {
+export const getSpendingByUserId = (userId) => {
+  return async (dispatch) => {
     await axios
       .get(`${process.env.REACT_APP_BACKEND_API}/spending/user/${userId}`)
-      .then(response => {
+      .then((response) => {
         dispatch(fetchUsersSpendingAction(response.data.usersSpending));
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        const { message } = err.response.data;
+        dispatch(
+          setErrorAction({
+            status: err.response.status,
+            message: message,
+          })
+        );
       });
   };
 };
 
 export const createSpending = (newSpending, token) => {
-  return async dispatch => {
+  return async (dispatch) => {
     await axios
       .post(`${process.env.REACT_APP_BACKEND_API}/spending`, newSpending, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(response => {
+      .then((response) => {
         dispatch(createSpendingAction(response.data.spending));
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        const { message } = err.response.data;
+        dispatch(
+          setErrorAction({
+            status: err.response.status,
+            message: message,
+          })
+        );
       });
   };
 };
 
 export const deleteSpending = (spendingId, token) => {
-  return async dispatch => {
+  return async (dispatch) => {
     await axios
       .delete(`${process.env.REACT_APP_BACKEND_API}/spending/${spendingId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(response => {
+      .then((response) => {
         dispatch(deleteSpendingAction(response.data.spendingId));
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        const { message } = err.response.data;
+        dispatch(
+          setErrorAction({
+            status: err.response.status,
+            message: message,
+          })
+        );
       });
   };
 };
 
 export const updateSpending = (spendingId, updatedSpending, token) => {
-  return async dispatch => {
+  return async (dispatch) => {
     await axios
       .patch(
         `${process.env.REACT_APP_BACKEND_API}/spending/${spendingId}`,
@@ -65,7 +84,7 @@ export const updateSpending = (spendingId, updatedSpending, token) => {
           },
         }
       )
-      .then(response => {
+      .then((response) => {
         dispatch(
           updateSpendingAction({
             id: response.data.spendingId,
@@ -73,8 +92,14 @@ export const updateSpending = (spendingId, updatedSpending, token) => {
           })
         );
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        const { message } = err.response.data;
+        dispatch(
+          setErrorAction({
+            status: err.response.status,
+            message: message,
+          })
+        );
       });
   };
 };

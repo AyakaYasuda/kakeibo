@@ -152,9 +152,11 @@ const Auth = () => {
               className={classes['signup-input']}
               {...signupFromRegister('confirmPassword')}
             />
-            <p className={classes['signup-error']}>
-              {signupErrors.confirmPassword?.message}
-            </p>
+            {signupErrors.confirmPassword?.message && (
+              <p className={classes['signup-error']}>
+                confirm password must be the same as password above
+              </p>
+            )}
             <div className="spacer-md" />
             <Button>Sign Up</Button>
           </form>
