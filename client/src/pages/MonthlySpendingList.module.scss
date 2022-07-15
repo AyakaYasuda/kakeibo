@@ -1,14 +1,27 @@
 @import '../mixin.scss';
 
-.no-spending-container {
-  @include section-container;
-  @include center-col;
-}
-
-.spending-list-container {
-  margin: 0 auto;
-  max-width: 900px;
+.container {
+  @include section-container-wide;
   padding: 0 1rem;
   width: 100%;
   text-align: center;
+}
+
+.total-spending {
+  @include center-col;
+  margin: 1rem 0 0.5rem;
+
+  h2 {
+    color: $secondary-color;
+  }
+
+  h1 {
+    color: $primary-color;
+  }
+}
+
+.spending-list {
+  width: 100%;
+  height: 68vh;
+  overflow-y: scroll;
 }

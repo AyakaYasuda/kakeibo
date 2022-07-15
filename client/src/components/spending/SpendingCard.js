@@ -44,9 +44,9 @@ const SpendingCard = ({ data }) => {
         <small>{createDate}</small>
         <h2 className="text-secondary">{data.title}</h2>
         <p>{data.memo}</p>
-        <button className={classes['card-btn']}>
+        <div className={classes['card-btn']}>
           {`$${data.amount.toFixed(2)}`}
-        </button>
+        </div>
       </div>
     </div>
   );

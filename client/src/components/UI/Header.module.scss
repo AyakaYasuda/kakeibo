@@ -14,7 +14,7 @@
     flex-direction: column;
     align-items: center;
 
-    @include media-sm {
+    @include media-md {
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
@@ -40,8 +40,8 @@
   align-items: center;
   padding-top: 1rem;
 
-  @include media-sm {
-    padding-top: 0;
+  @include media-md {
+    padding-top: 0rem;
   }
 
   a {

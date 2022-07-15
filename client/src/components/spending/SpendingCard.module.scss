@@ -6,7 +6,7 @@
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  max-width: 100%;
+  max-width: 95%;
   margin: 2rem auto;
   overflow: hidden;
   width: 70rem;
@@ -61,12 +61,16 @@
     position: absolute;
     top: 0;
     right: 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
+  }
+
+  &-info h2 {
+    margin-top: 1.5rem;
   }
 
   &-info p {
     color: $primary-color;
-    margin: 1rem 0;
+    margin: 1rem 0 3rem;
   }
 
   &-btn {
@@ -79,8 +83,8 @@
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
     padding: 1.2rem 2.5rem;
     position: absolute;
-    right: 3rem;
-    bottom: 3rem;
+    right: 2rem;
+    bottom: 2rem;
   }
 
   .icon-delete,
@@ -88,6 +92,7 @@
     font-size: 1.5rem;
     margin: 0 0.5rem;
     opacity: 0.6;
+    cursor: pointer;
   }
 
   .icon-delete:hover,
@@ -114,8 +119,8 @@
     margin: 2rem auto;
 
     &-btn {
-      right: 3rem;
-      bottom: 3rem;
+      right: 1.5rem;
+      bottom: 1.5rem;
     }
   }
 }
@@ -136,7 +141,7 @@
 
     &-options {
       left: 2rem;
-      bottom: 3rem;
+      bottom: 2rem;
     }
   }
 }

@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 
 import useFilter from '../hooks/useFilter';
 
+import NoSpending from '../components/spending/NoSpending';
 import MonthFilter from '../components/spending/MonthFilter';
 import SpendingCard from '../components/spending/SpendingCard';
-import Button from '../components/UI/Button';
 import classes from './MonthlySpendingList.module.scss';
 
 const MonthlySpendingList = () => {
@@ -18,28 +18,27 @@ const MonthlySpendingList = () => {
   const { filteredSpendingList, monthlyTotalSpending } = useFilter(filterValue);
 
   if (!spendingList || spendingList.length === 0) {
-    return (
-      <div className={classes["no-spending-container"]}>
-        <p>No spending yet... Create new spending?</p>
-        <div className="spacer-sm" />
-        <Button to="/spending/new">Create</Button>
-      </div>
-    );
+    return <NoSpending />;
   }
 
   return (
-    <div className={classes["spending-list-container"]}>
+    <div className={classes['container']}>
       {monthlyTotalSpending && (
-        <div>Total Spending : ${monthlyTotalSpending?.toFixed(2).toLocaleString()}</div>
+        <div className={classes['total-spending']}>
+          <h2>Total Spending as of {filterValue} </h2>
+          <h1>${monthlyTotalSpending?.toFixed(2).toLocaleString()}</h1>
+        </div>
       )}
       <MonthFilter
         value={filterValue}
         onChange={(e) => setFilterValue(e.target.value)}
       />
-      {filteredSpendingList.length > 0 &&
-        filteredSpendingList.map((spending) => (
-          <SpendingCard data={spending} key={spending.id} />
-        ))}
+      <div className={classes['spending-list']}>
+        {filteredSpendingList.length > 0 &&
+          filteredSpendingList.map((spending) => (
+            <SpendingCard data={spending} key={spending.id} />
+          ))}
+      </div>
     </div>
   );
 };
