@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -22,6 +23,7 @@ const spendingSchema = yup.object().shape({
 
 const SpendingForm = ({ preloadedValues, type, spendingId }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const loginUserId = useSelector((state) => state.users.uid);
   const token = useSelector((state) => state.users.token);
   const {
@@ -70,6 +72,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
 
   const clearFormHandler = () => {
     reset();
+    navigate('/my-page');
   };
 
   const submitHandler =
@@ -156,8 +159,8 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
 
       <div className="spacer-sm" />
       <div className={classes['form-buttons']}>
-        <Button onClick={clearFormHandler}>Cancel</Button>
         <Button type="submit">Save</Button>
+        <Button onClick={clearFormHandler}>Cancel</Button>
       </div>
     </form>
   );
