@@ -72,9 +72,9 @@ const Router = () => {
   }
 
   return (
-    <Routes>
-      <Suspense fallback={<LoadingSpinner />}>{routes}</Suspense>
-    </Routes>
+    <Suspense fallback={<LoadingSpinner />}>
+      <Routes>{routes}</Routes>
+    </Suspense>
   );
 };
 
