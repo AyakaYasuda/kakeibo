@@ -187,7 +187,7 @@ const addBudgetToUser = async (req, res, next) => {
 
   const userId = req.params.uid;
   const { budget } = req.body;
-  
+
   let user;
   try {
     user = await User.findById(userId);
@@ -202,7 +202,7 @@ const addBudgetToUser = async (req, res, next) => {
   }
 
   user.budget = budget;
-  
+
   try {
     await user.save({ validateModifiedOnly: true });
   } catch (err) {
