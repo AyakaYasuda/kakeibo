@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import useSpendingErrorModal from '../hooks/useSpendingErrorModal';
 
 import SpendingForm from '../components/spending/SpendingForm';
+import ErrorModal from '../components/UI/ErrorModal';
 
 import classes from './SpendingEdit.module.scss';
 
 const SpendingEdit = () => {
   const spendingId = useParams().id;
   const spendingList = useSelector((state) => state.spending.spendingList);
+  const { isModalShown, message, closeModalHandler } = useSpendingErrorModal();
 
   const [category, setCategory] = useState();
   const [title, setTitle] = useState();
@@ -40,15 +43,24 @@ const SpendingEdit = () => {
   };
 
   return (
-    <div className={classes.container}>
-      <h2 className={classes.title}>Update your spending?</h2>
-      <div className="spacer-sm" />
-      <SpendingForm
-        preloadedValues={preloadedValues}
-        type="update"
-        spendingId={spendingId}
-      />
-    </div>
+    <>
+      {isModalShown && (
+        <ErrorModal
+          show={isModalShown}
+          onClose={closeModalHandler}
+          message={message}
+        />
+      )}
+      <div className={classes.container}>
+        <h2 className={classes.title}>Update your spending?</h2>
+        <div className="spacer-sm" />
+        <SpendingForm
+          preloadedValues={preloadedValues}
+          type="update"
+          spendingId={spendingId}
+        />
+      </div>
+    </>
   );
 };
 

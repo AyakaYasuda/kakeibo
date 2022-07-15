@@ -1,6 +1,10 @@
 const initialState = {
   spending: {
     spendingList: [],
+    error: {
+      status: null,
+      message: '',
+    },
   },
   users: {
     isLoggedIn: false,
@@ -10,6 +14,10 @@ const initialState = {
     password: '',
     token: null,
     budget: null,
+    error: {
+      status: null,
+      message: '',
+    },
   },
 };
 

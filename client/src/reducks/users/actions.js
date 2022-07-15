@@ -37,3 +37,19 @@ export const getBudgetByIdAction = (user) => {
     payload: user,
   };
 };
+
+export const SET_ERROR = 'SET_ERROR';
+export const setErrorAction = (error) => {
+  return {
+    type: 'SET_ERROR',
+    payload: error,
+  };
+};
+
+export const RESET_ERROR = 'RESET_ERROR';
+export const resetErrorAction = (error) => {
+  return {
+    type: 'RESET_ERROR',
+    payload: error,
+  };
+};

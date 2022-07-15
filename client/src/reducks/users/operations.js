@@ -5,6 +5,8 @@ import {
   logoutAction,
   addBudgetAction,
   getBudgetByIdAction,
+  setErrorAction,
+  resetErrorAction,
 } from './actions';
 
 export const signup = (userState) => {
@@ -24,7 +26,13 @@ export const signup = (userState) => {
         );
       })
       .catch((err) => {
-        console.log(err);
+        const { message } = err.response.data;
+        dispatch(
+          setErrorAction({
+            status: err.response.status,
+            message: message,
+          })
+        );
       });
   };
 };
@@ -58,7 +66,13 @@ export const login = (userState, expirationDate) => {
         );
       })
       .catch((err) => {
-        console.log(err);
+        const { message } = err.response.data;
+        dispatch(
+          setErrorAction({
+            status: err.response.status,
+            message: message,
+          })
+        );
       });
   };
 };
@@ -84,7 +98,13 @@ export const autoLogin = (userId, token, expirationDate) => {
         );
       })
       .catch((err) => {
-        console.log(err);
+        const { message } = err.response.data;
+        dispatch(
+          setErrorAction({
+            status: err.response.status,
+            message: message,
+          })
+        );
       });
   };
 };
@@ -118,7 +138,13 @@ export const addBudget = (userId, token, budget) => {
         dispatch(addBudgetAction(response.data.budget));
       })
       .catch((err) => {
-        console.log(err);
+        const { message } = err.response.data;
+        dispatch(
+          setErrorAction({
+            status: err.response.status,
+            message: message,
+          })
+        );
       });
   };
 };
@@ -132,7 +158,24 @@ export const getBudgetById = (userId) => {
         dispatch(getBudgetByIdAction({ budget: budget }));
       })
       .catch((err) => {
-        console.log(err);
+        const { message } = err.response.data;
+        dispatch(
+          setErrorAction({
+            status: err.response.status,
+            message: message,
+          })
+        );
       });
+  };
+};
+
+export const resetError = () => {
+  return async (dispatch) => {
+    dispatch(
+      resetErrorAction({
+        status: null,
+        message: '',
+      })
+    );
   };
 };

@@ -1,0 +1,30 @@
+@import '../../mixin.scss';
+
+.modal-content {
+  z-index: 100;
+  position: fixed;
+  top: 10vh;
+  left: 10%;
+  width: 80%;
+  background-color: #fcfeff;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 3rem;
+  text-align: center;
+  @include center-col;
+
+  h1 {
+    color: $secondary-color;
+  }
+
+  h3 {
+    color: $primary-color;
+  }
+
+  img {
+    object-fit: contain;
+    width: 15rem;
+    height: auto;
+    margin-bottom: 2rem;
+  }
+}

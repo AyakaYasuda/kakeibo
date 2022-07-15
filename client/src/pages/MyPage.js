@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import useFilter from '../hooks/useFilter';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { getBudgetById } from '../reducks/users/operations';
 
@@ -8,9 +9,9 @@ import PieChart from '../components/charts/PieChart';
 import Status from '../components/spending/Status';
 import NoSpending from '../components/spending/NoSpending';
 import NoBudget from '../components/spending/NoBudget';
+import LoadingSpinner from '../components/UI/LoadingSpinner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faListSquares, faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
 import classes from './MyPage.module.scss';
 
 const MyPage = () => {
@@ -28,7 +29,7 @@ const MyPage = () => {
     if (uid) {
       dispatch(getBudgetById(uid));
     }
-  }, [uid]);
+  }, [uid, dispatch]);
 
   const createChartData = () => {
     // 1. create category map from categories
@@ -51,10 +52,20 @@ const MyPage = () => {
       .filter((item) => item.y !== 0);
   };
 
-  return (
-    <div className={classes['wrapper']}>
-      {!budget && <NoBudget />}
-      {monthlyTotalSpending && monthlyTotalSpending !== 0 ? (
+  let content;
+  if (!monthlyTotalSpending) {
+    content = <LoadingSpinner />;
+  } else if (monthlyTotalSpending && monthlyTotalSpending.length === 0) {
+    content = (
+      <>
+        {!budget && <NoBudget />}
+        <NoSpending />
+      </>
+    );
+  } else {
+    content = (
+      <>
+        {!budget && <NoBudget />}
         <div className={classes['container']}>
           <section>
             <div className={classes.menu}>
@@ -87,11 +98,11 @@ const MyPage = () => {
             <PieChart data={createChartData()} />
           </div>
         </div>
-      ) : (
-        <NoSpending />
-      )}
-    </div>
-  );
+      </>
+    );
+  }
+
+  return <div className={classes['wrapper']}>{content}</div>;
 };
 
 export default MyPage;
