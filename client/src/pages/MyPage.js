@@ -74,7 +74,10 @@ const MyPage = () => {
               </div>
             </div>
             <div className={classes.status}>
-              <h1>${monthlyTotalSpending?.toFixed(2).toLocaleString()} spent so far</h1>
+              <h1>
+                ${Number(monthlyTotalSpending?.toFixed(2)).toLocaleString()}{' '}
+                spent so far
+              </h1>
               <Status />
             </div>
           </section>

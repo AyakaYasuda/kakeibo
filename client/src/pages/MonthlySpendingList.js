@@ -26,7 +26,7 @@ const MonthlySpendingList = () => {
       {monthlyTotalSpending && (
         <div className={classes['total-spending']}>
           <h2>Total Spending as of {filterValue} </h2>
-          <h1>${monthlyTotalSpending?.toFixed(2).toLocaleString()}</h1>
+          <h1>${Number(monthlyTotalSpending?.toFixed(2)).toLocaleString()}</h1>
         </div>
       )}
       <MonthFilter

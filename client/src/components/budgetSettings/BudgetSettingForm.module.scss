@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+@import '../../mixin.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+  @include section-container;
+
+  &-label {
+    font-size: 1.8rem;
+    margin-top: 0.7rem;
+    margin-bottom: 0.5rem;
+    color: $secondary-color;
+  }
+
+  &-input {
+    font-size: 1.6rem;
+    padding: 0.5rem;
+    border: 1px solid $secondary-color;
+    border-radius: 5px;
+    color: $primary-color;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 0.5rem;
+  }
+
+  &-error-message {
+    color: $accent-color;
+  }
+
+  &-buttons {
+    @include center-col;
+    margin-top: 2rem;
+
+    button {
+      width: 65%;
+      margin: 0.5rem 0;
+    }
+
+    @include media-md {
+      @include center-row;
+
+      button {
+        width: max-content;
+        margin: 0.5rem;
+      }
+    }
+  }
+}

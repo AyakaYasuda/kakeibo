@@ -38,9 +38,14 @@ const PieChart = ({ data }) => {
                 {
                   target: 'labels',
                   mutation: ({ text, datum }) => {
-                    return text === `$${datum.y.toFixed(2).toLocaleString()}`
+                    return text ===
+                      `$${Number(datum.y.toFixed(2)).toLocaleString()}`
                       ? null
-                      : { text: `$${datum.y.toFixed(2).toLocaleString()}` };
+                      : {
+                          text: `$${Number(
+                            datum.y.toFixed(2)
+                          ).toLocaleString()}`,
+                        };
                   },
                 },
               ];

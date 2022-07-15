@@ -1,0 +1,37 @@
+@import '../mixin.scss';
+
+.container {
+  @include section-container-wide;
+  text-align: center;
+  height: 80vh;
+}
+
+.budget {
+  margin: 1rem 0 0.5rem;
+  @include center-col;
+
+  h2 {
+    color: $secondary-color;
+  }
+
+  h1 {
+    color: $primary-color;
+    margin: 1rem 0;
+  }
+
+  button {
+    margin: 3rem 0;
+  }
+}
+
+.title {
+  h1 {
+    color: $secondary-color;
+  }
+}
+
+.image {
+  object-fit: contain;
+  width: 15rem;
+  height: auto;
+}
