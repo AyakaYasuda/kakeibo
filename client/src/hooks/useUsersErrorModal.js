@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetError } from '../reducks/users/operations';
 
 const useUsersErrorModal = () => {
+  const dispatch = useDispatch();
   const [isModalShown, setIsModalShown] = useState(false);
   const { error } = useSelector((state) => state.users);
   const { status, message } = error;
@@ -14,9 +16,8 @@ const useUsersErrorModal = () => {
 
   const closeModalHandler = () => {
     setIsModalShown(false);
+    dispatch(resetError())
   };
-
-  console.log(error, isModalShown);
 
   return { isModalShown, status, message, closeModalHandler };
 };

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { resetError } from '../reducks/spending/operations';
 
 const useSpendingErrorModal = () => {
+  const dispatch = useDispatch();
   const [isModalShown, setIsModalShown] = useState(false);
   const { error } = useSelector((state) => state.spending);
   const { status, message } = error;
@@ -14,6 +16,7 @@ const useSpendingErrorModal = () => {
 
   const closeModalHandler = () => {
     setIsModalShown(false);
+    dispatch(resetError());
   };
 
   return { isModalShown, status, message, closeModalHandler };

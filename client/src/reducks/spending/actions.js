@@ -37,3 +37,11 @@ export const setErrorAction = (error) => {
     payload: error,
   };
 };
+
+export const RESET_ERROR = 'RESET_ERROR';
+export const resetErrorAction = (error) => {
+  return {
+    type: 'RESET_ERROR',
+    payload: error,
+  };
+};

@@ -42,6 +42,15 @@ export const UsersReducer = (state = initialState.users, action) => {
         },
       };
 
+    case Actions.RESET_ERROR:
+      return {
+        ...state,
+        error: {
+          status: action.payload.status,
+          message: action.payload.message,
+        },
+      };
+
     default:
       return state;
   }

@@ -6,6 +6,7 @@ import {
   addBudgetAction,
   getBudgetByIdAction,
   setErrorAction,
+  resetErrorAction,
 } from './actions';
 
 export const signup = (userState) => {
@@ -119,10 +120,6 @@ export const logout = () => {
         password: null,
         token: null,
         budget: null,
-        error: {
-          status: null,
-          message: '',
-        },
       })
     );
     localStorage.removeItem('userData');
@@ -169,5 +166,16 @@ export const getBudgetById = (userId) => {
           })
         );
       });
+  };
+};
+
+export const resetError = () => {
+  return async (dispatch) => {
+    dispatch(
+      resetErrorAction({
+        status: null,
+        message: '',
+      })
+    );
   };
 };
