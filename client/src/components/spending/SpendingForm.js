@@ -81,86 +81,90 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
     type === 'create' ? createSpendingHandler : updateSpendingHandler;
 
   return (
-    <>
-      <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
-        <label className={classes['form-label']} htmlFor="createDate">
-          Date
-        </label>
-        <input
-          className={classes['form-input']}
-          type="date"
-          id="createDate"
-          name="createDate"
-          {...register('createdAt')}
-          min="2021-01-01"
-          max="2023-12-31"
-        />
-        {errors.createdAt?.message && <p>date is a required field</p>}
+    <form className={classes.form} onSubmit={handleSubmit(submitHandler)}>
+      <label className={classes['form-label']} htmlFor="createDate">
+        Date
+      </label>
+      <input
+        className={classes['form-input']}
+        type="date"
+        id="createDate"
+        name="createDate"
+        {...register('createdAt')}
+        min="2021-01-01"
+        max="2023-12-31"
+      />
+      {errors.createdAt?.message && (
+        <p className={classes['form-error-message']}>
+          date is a required field
+        </p>
+      )}
 
-        <label className={classes['form-label']} htmlFor="category">
-          Category
-        </label>
-        <select
-          className={classes['form-input']}
-          name="category"
-          id="category"
-          {...register('category')}
-        >
-          <option value="" disabled hidden>
-            Select category
+      <label className={classes['form-label']} htmlFor="category">
+        Category
+      </label>
+      <select
+        className={classes['form-input']}
+        name="category"
+        id="category"
+        {...register('category')}
+      >
+        <option value="" disabled hidden>
+          Select category
+        </option>
+        {categories.map((category, index) => (
+          <option key={index} value={category}>
+            {category}
           </option>
-          {categories.map((category, index) => (
-            <option key={index} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
-        <p>{errors.category?.message}</p>
+        ))}
+      </select>
+      <p className={classes['form-error-message']}>
+        {errors.category?.message}
+      </p>
 
-        <label className={classes['form-label']} htmlFor="title">
-          Title
-        </label>
-        <input
-          className={classes['form-input']}
-          type="text"
-          name="title"
-          id="title"
-          {...register('title')}
-        />
-        <p>{errors.title?.message}</p>
+      <label className={classes['form-label']} htmlFor="title">
+        Title
+      </label>
+      <input
+        className={classes['form-input']}
+        type="text"
+        name="title"
+        id="title"
+        {...register('title')}
+      />
+      <p className={classes['form-error-message']}>{errors.title?.message}</p>
 
-        <label className={classes['form-label']} htmlFor="amount">
-          Amount
-        </label>
-        <input
-          className={classes['form-input']}
-          type="number"
-          step="0.01"
-          name="amount"
-          id="amount"
-          {...register('amount')}
-        />
-        <p>{errors.amount?.message}</p>
+      <label className={classes['form-label']} htmlFor="amount">
+        Amount
+      </label>
+      <input
+        className={classes['form-input']}
+        type="number"
+        step="0.01"
+        name="amount"
+        id="amount"
+        {...register('amount')}
+      />
+      <p className={classes['form-error-message']}>{errors.amount?.message}</p>
 
-        <label className={classes['form-label']} htmlFor="memo">
-          Memo
-        </label>
-        <textarea
-          className={classes['form-input']}
-          name="memo"
-          rows="5"
-          id="memo"
-          {...register('memo')}
-        />
-        <p>{errors.memo?.message}</p>
+      <label className={classes['form-label']} htmlFor="memo">
+        Memo
+      </label>
+      <textarea
+        className={classes['form-input']}
+        name="memo"
+        rows="5"
+        id="memo"
+        {...register('memo')}
+      />
+      <p className={classes['form-error-message']}>{errors.memo?.message}</p>
 
-        <div className="spacer-sm" />
-        <div className={classes['form-buttons']}>
-          <Button onClick={clearFormHandler}>Cancel</Button>
-          <Button type="submit">Save</Button>
-        </div>
-      </form>
-    </>
+      <div className="spacer-sm" />
+      <div className={classes['form-buttons']}>
+        <Button onClick={clearFormHandler}>Cancel</Button>
+        <Button type="submit">Save</Button>
+      </div>
+    </form>
   );
 };
 

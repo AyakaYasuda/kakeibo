@@ -47,6 +47,10 @@ h3 {
 p {
   font-weight: 400;
   font-size: 1.6rem;
+
+  @include media-xs {
+    font-size: 1.2rem;
+  }
 }
 
 a {

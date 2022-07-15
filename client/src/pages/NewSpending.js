@@ -8,7 +8,6 @@ const NewSpending = () => {
   return (
     <div className={classes.container}>
       <h2 className={classes.title}>What did you spend money on?</h2>
-      <div className="spacer-sm" />
       <SpendingForm type="create" />
     </div>
   );
