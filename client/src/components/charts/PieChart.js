@@ -4,7 +4,7 @@ import { VictoryPie } from 'victory';
 const PieChart = ({ data }) => {
   return (
     <VictoryPie
-      width={520}
+      width={550}
       colorScale={[
         '#184e77',
         '#1e6091',
@@ -20,8 +20,6 @@ const PieChart = ({ data }) => {
         '#ffc300',
       ]}
       data={data}
-      startAngle={90}
-      endAngle={-90}
       innerRadius={50}
       events={[
         {
@@ -32,17 +30,22 @@ const PieChart = ({ data }) => {
                 {
                   target: 'data',
                   mutation: ({ style }) => {
-                    return style.fill === '#c43a31'
+                    return style.fill === '#f07167'
                       ? null
-                      : { style: { fill: '#c43a31' } };
+                      : { style: { fill: '#f07167' } };
                   },
                 },
                 {
                   target: 'labels',
                   mutation: ({ text, datum }) => {
-                    return text === `$${datum.y.toFixed(2)}`
+                    return text ===
+                      `$${Number(datum.y.toFixed(2)).toLocaleString()}`
                       ? null
-                      : { text: `$${datum.y.toFixed(2)}` };
+                      : {
+                          text: `$${Number(
+                            datum.y.toFixed(2)
+                          ).toLocaleString()}`,
+                        };
                   },
                 },
               ];

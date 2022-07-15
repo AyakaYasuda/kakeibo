@@ -15,18 +15,20 @@ const Header = () => {
   };
 
   return (
-    <div className={classes.header}>
-      <a href="/">kakeibo</a>
-      {isLoggedIn && (
-        <div className={classes.menu}>
-          <Link to="/settings">Settings</Link>
-          <Link to="/my-page">My page</Link>
-          <Button onClick={logoutHandler} size="small">
-            LOGOUT
-          </Button>
-        </div>
-      )}
-    </div>
+    <section className={classes.header}>
+      <div className={classes["header-container"]}>
+        <Link to="/">kakeibo</Link>
+        {isLoggedIn && (
+          <div className={classes.menu}>
+            <Link to="/my-page">My page</Link>
+            <Link to="/settings">Settings</Link>
+            <Button onClick={logoutHandler} size="small">
+              LOGOUT
+            </Button>
+          </div>
+        )}
+      </div>
+    </section>
   );
 };
 

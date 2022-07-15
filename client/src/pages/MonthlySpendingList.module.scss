@@ -1,20 +1,27 @@
-@import "../mixin.scss";
+@import '../mixin.scss';
 
 .container {
-  margin: 0 auto;
-  max-width: 900px;
+  @include section-container-wide;
   padding: 0 1rem;
   width: 100%;
   text-align: center;
 }
 
-.add-btn {
-  font-size: 4rem;
-  color: #ccc;
-  margin: 1rem 0;
-  cursor: pointer;
+.total-spending {
+  @include center-col;
+  margin: 1rem 0 0.5rem;
+
+  h2 {
+    color: $secondary-color;
+  }
+
+  h1 {
+    color: $primary-color;
+  }
 }
 
-.add-btn:hover {
-  color: darkgray;
+.spending-list {
+  width: 100%;
+  height: 68vh;
+  overflow-y: scroll;
 }

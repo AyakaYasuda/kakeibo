@@ -1,4 +1,8 @@
-@import "../mixin.scss";
+@import '../mixin.scss';
+
+.container {
+  @include section-container;
+}
 
 .title {
   color: $primary-color;

@@ -5,6 +5,8 @@ import useFilter from '../../hooks/useFilter';
 import FacePalming from '../../assets/images/facepalming.png';
 import Scared from '../../assets/images/scared.png';
 import Good from '../../assets/images/good.png';
+import NoIdea from '../../assets/images/no-idea.png';
+import classes from './Status.module.scss';
 
 const Status = () => {
   const currentYearAndMonth =
@@ -31,18 +33,20 @@ const Status = () => {
         setStatus('good');
         setImage(Good);
       }
+    } else if (monthlyTotalSpending && !budget) {
+      setStatus('no budget yet');
+      setImage(NoIdea);
     }
   }, [monthlyTotalSpending, budget]);
 
-  console.log(status, image);
-
   return (
-    <>
-      <div>{status}</div>
+    <div className={classes[`status-container-${status}`]}>
       <div>
-        <img src={image} />
+        <p>Current Status is...</p>
+        <h2>{status}</h2>
       </div>
-    </>
+      <img src={image} className={classes.image} />
+    </div>
   );
 };
 

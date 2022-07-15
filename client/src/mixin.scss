@@ -27,3 +27,45 @@ $accent-color: #f07167;
     @content;
   }
 }
+
+@mixin max-width {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+@mixin hover-effect {
+  transform: translateY(-0.25rem);
+  transition-duration: 300ms;
+}
+
+@mixin center-col {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin center-row {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin section-container {
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 1rem;
+  height: auto;
+  width: calc(100% - 2rem);
+}
+
+@mixin section-container-wide {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 1rem;
+  height: auto;
+  width: calc(100% - 2rem);
+}

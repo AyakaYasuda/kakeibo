@@ -1,6 +1,18 @@
-@import "../mixin.scss";
+@import '../mixin.scss';
+
+.container {
+  @include section-container;
+  height: 80vh;
+}
 
 .title {
   color: $primary-color;
-}
+  text-align: center;
+  padding: 0 2rem;
+  margin: 1rem 0 0.5rem;
 
+  @include media-md {
+    padding: 0;
+    margin: 2rem;
+  }
+}
