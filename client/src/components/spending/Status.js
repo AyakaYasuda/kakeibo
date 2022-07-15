@@ -45,7 +45,7 @@ const Status = () => {
         <p>Current Status is...</p>
         <h2>{status}</h2>
       </div>
-      <img src={image} className={classes.image} />
+      <img src={image} className={classes.image} alt={status} />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import useFilter from '../hooks/useFilter';
 import NoSpending from '../components/spending/NoSpending';
 import MonthFilter from '../components/spending/MonthFilter';
 import SpendingCard from '../components/spending/SpendingCard';
+import LoadingSpinner from '../components/UI/LoadingSpinner';
 import classes from './MonthlySpendingList.module.scss';
 
 const MonthlySpendingList = () => {
@@ -17,7 +18,11 @@ const MonthlySpendingList = () => {
 
   const { filteredSpendingList, monthlyTotalSpending } = useFilter(filterValue);
 
-  if (!spendingList || spendingList.length === 0) {
+  if (!spendingList) {
+    return <LoadingSpinner />;
+  }
+
+  if (spendingList.length === 0) {
     return <NoSpending />;
   }
 

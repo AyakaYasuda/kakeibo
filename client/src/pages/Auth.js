@@ -81,6 +81,7 @@ const Auth = () => {
           message={message}
         />
       )}
+      {/* FIXME: split the code by creating form component */}
       <div className={classes.auth}>
         <div className={classes.login}>
           <h2 className={classes['login-title']} onClick={switchModeHandler}>

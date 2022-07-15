@@ -21,7 +21,7 @@ const Settings = () => {
     if (uid) {
       dispatch(getBudgetById(uid));
     }
-  }, [uid]);
+  }, [uid, dispatch]);
 
   return (
     <>

@@ -36,7 +36,7 @@ const BudgetSettingForm = ({ setIsEditing }) => {
     if (preloadedValue) {
       setValue('budget', preloadedValue);
     }
-  }, [preloadedValue]);
+  }, [preloadedValue, setValue]);
 
   const submitHandler = (data) => {
     const budget = { budget: data.budget };
