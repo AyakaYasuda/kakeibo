@@ -19,7 +19,7 @@ const MonthlySpendingList = () => {
 
   if (!spendingList || spendingList.length === 0) {
     return (
-      <div className="section-container center-col">
+      <div className={classes["no-spending-container"]}>
         <p>No spending yet... Create new spending?</p>
         <div className="spacer-sm" />
         <Button to="/spending/new">Create</Button>
@@ -28,9 +28,9 @@ const MonthlySpendingList = () => {
   }
 
   return (
-    <div className={classes.container}>
+    <div className={classes["spending-list-container"]}>
       {monthlyTotalSpending && (
-        <div>Total Spending : ${monthlyTotalSpending.toFixed(2)}</div>
+        <div>Total Spending : ${monthlyTotalSpending?.toLocaleString()}</div>
       )}
       <MonthFilter
         value={filterValue}

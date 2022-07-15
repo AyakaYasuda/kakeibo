@@ -40,17 +40,15 @@ const SpendingEdit = () => {
   };
 
   return (
-    <>
-      <div className="section-container">
-        <h2 className={classes.title}>Update your spending?</h2>
-        <div className="spacer-sm" />
-        <SpendingForm
-          preloadedValues={preloadedValues}
-          type="update"
-          spendingId={spendingId}
-        />
-      </div>
-    </>
+    <div className={classes.container}>
+      <h2 className={classes.title}>Update your spending?</h2>
+      <div className="spacer-sm" />
+      <SpendingForm
+        preloadedValues={preloadedValues}
+        type="update"
+        spendingId={spendingId}
+      />
+    </div>
   );
 };
 

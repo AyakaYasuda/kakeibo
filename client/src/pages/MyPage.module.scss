@@ -1,18 +1,69 @@
-@import "../mixin.scss";
+@import '../mixin.scss';
 
-a {
-  text-decoration: none;
-  font-size: 1.6rem;
-  color: $primary-color;
+.container {
+  @include section-container-wide;
+  @include center-col;
+
+  @include media-md {
+    @include center-row;
+    align-items: flex-start;
+    margin-top: 6rem;
+    height: 75vh;
+  }
+
+  svg {
+    cursor: pointer;
+  }
 }
 
-a:hover {
-  color: $secondary-color;
+.menu {
+  @include center-col;
+  margin-bottom: 3rem;
+
+  &-item {
+    width: 30rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+    margin: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      @include hover-effect;
+    }
+
+    a {
+      text-decoration: none;
+      font-size: 1.6rem;
+      color: $primary-color;
+    }
+
+    .icon {
+      font-size: 1.6rem;
+      color: $primary-color;
+      margin-right: 1rem;
+    }
+  }
 }
 
-.icon-list,
-.icon-add {
-  font-size: 1.6rem;
-  color: $primary-color;
-  margin-right: 1rem;
+.status {
+  margin-bottom: 5rem;
+
+  h1 {
+    color: $secondary-color;
+    margin-bottom: 2rem;
+  }
+}
+
+.chart {
+  h2 {
+    color: $primary-color;
+  }
+
+  h3 {
+    color: $secondary-color;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+  }
 }

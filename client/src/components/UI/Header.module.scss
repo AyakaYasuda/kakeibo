@@ -29,9 +29,8 @@
   }
 
   a:hover {
-    transform: translateY(-0.25rem);
     color: white;
-    transition-duration: 300ms;
+    @include hover-effect;
   }
 }
 

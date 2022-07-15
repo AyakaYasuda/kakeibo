@@ -1,4 +1,4 @@
-@import "../../mixin.scss";
+@import '../../mixin.scss';
 
 .form {
   display: flex;
@@ -18,5 +18,9 @@
     border: 1px solid $secondary-color;
     border-radius: 5px;
     color: $primary-color;
+  }
+
+  &-buttons {
+    @include center-row;
   }
 }

@@ -1,0 +1,67 @@
+@import '../../mixin.scss';
+
+.status-container-danger {
+  @include center-col;
+  padding: 4rem;
+  border-radius: 10px;
+  background-color: $accent-color;
+  border-radius: 10px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+
+  @include media-sm {
+    @include center-row;
+    padding: 2rem 4rem;
+  }
+
+  h2 {
+    margin: 1rem 2rem;
+    font-size: 3rem;
+    color: white;
+  }
+}
+
+.status-container-warning {
+  @include center-col;
+  padding: 4rem;
+  border-radius: 10px;
+  background-color: #ffdd00;
+  border-radius: 10px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+
+  @include media-sm {
+    @include center-row;
+    padding: 2rem 4rem;
+  }
+
+  h2 {
+    margin: 1rem 2rem;
+    font-size: 3rem;
+    color: white;
+  }
+}
+
+.status-container-good {
+  @include center-col;
+  padding: 4rem;
+  border-radius: 10px;
+  background-color: #76c893;
+  border-radius: 10px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+
+  @include media-sm {
+    @include center-row;
+    padding: 2rem 4rem;
+  }
+
+  h2 {
+    margin: 1rem 2rem;
+    font-size: 3rem;
+    color: white;
+  }
+}
+
+.image {
+  object-fit: contain;
+  width: 15rem;
+  height: auto;
+}

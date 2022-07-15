@@ -40,7 +40,7 @@ const MyPage = () => {
       spendingAmountArr[idx] += spending.amount;
     }
 
-    // 3. create data tailored to chart
+    // 3. create data tailored to chart, then return it
     return categories
       .map((category) => ({
         x: category,
@@ -50,22 +50,28 @@ const MyPage = () => {
   };
 
   return (
-    <div className="section-container center-col">
-      <div>
-        <FontAwesomeIcon icon={faCirclePlus} className={classes['icon-add']} />
-        <Link to="/spending/new">Create Spending</Link>
+    <div className={classes['container']}>
+      <section>
+        <div className={classes.menu}>
+          <div className={classes['menu-item']}>
+            <FontAwesomeIcon icon={faCirclePlus} className={classes['icon']} />
+            <Link to="/spending/new">Record Spending</Link>
+          </div>
+          <div className={classes['menu-item']}>
+            <FontAwesomeIcon icon={faListSquares} className={classes['icon']} />
+            <Link to="/spending">Spending History</Link>
+          </div>
+        </div>
+        <div className={classes.status}>
+          <h1>${monthlyTotalSpending?.toLocaleString()} spent so far</h1>
+          <Status />
+        </div>
+      </section>
+      <div className={classes.chart}>
+        <h2>Your Spending By Category</h2>
+        <h3>Click and check the amount spent on each category</h3>
+        <PieChart data={createChartData()} />
       </div>
-      <Status />
-      <p>${monthlyTotalSpending}</p>
-      <div>
-        <FontAwesomeIcon
-          icon={faListSquares}
-          className={classes['icon-list']}
-        />
-        <Link to="/spending">Monthly Spending List</Link>
-      </div>
-      <PieChart data={createChartData()} />
-      <div className="spacer-sm" />
     </div>
   );
 };

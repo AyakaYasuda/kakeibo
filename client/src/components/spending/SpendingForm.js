@@ -155,7 +155,7 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
         <p>{errors.memo?.message}</p>
 
         <div className="spacer-sm" />
-        <div className="center-row">
+        <div className={classes['form-buttons']}>
           <Button onClick={clearFormHandler}>Cancel</Button>
           <Button type="submit">Save</Button>
         </div>

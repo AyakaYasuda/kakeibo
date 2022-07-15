@@ -59,8 +59,7 @@ button {
   text-transform: uppercase;
 
   &:hover {
-    transform: translateY(-0.25rem);
-    transition-duration: 300ms;
+    @include hover-effect;
   }
 }
 
@@ -82,28 +81,4 @@ button {
 
 .spacer-sm {
   height: 12px;
-}
-
-.center-col {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.center-row {
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.section-container {
-  margin: 0 auto;
-  max-width: 400px;
-  padding: 1rem;
-  height: auto;
-  width: calc(100% - 2rem);
 }
