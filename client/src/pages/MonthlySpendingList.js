@@ -30,7 +30,7 @@ const MonthlySpendingList = () => {
   return (
     <div className={classes["spending-list-container"]}>
       {monthlyTotalSpending && (
-        <div>Total Spending : ${monthlyTotalSpending?.toLocaleString()}</div>
+        <div>Total Spending : ${monthlyTotalSpending?.toFixed(2).toLocaleString()}</div>
       )}
       <MonthFilter
         value={filterValue}

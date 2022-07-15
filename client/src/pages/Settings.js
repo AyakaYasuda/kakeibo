@@ -17,7 +17,7 @@ const Settings = () => {
 
   return (
     <>
-      <p>Your monthly budget : ${budget?.toLocaleString()}</p>
+      <p>Your monthly budget : ${budget?.toFixed(2).toLocaleString()}</p>
       {!isEditing && <button onClick={() => setIsEditing(true)}>Edit</button>}
       {(!budget || isEditing) && (
         <BudgetSettingForm setIsEditing={setIsEditing} />

@@ -5,6 +5,7 @@ import useFilter from '../../hooks/useFilter';
 import FacePalming from '../../assets/images/facepalming.png';
 import Scared from '../../assets/images/scared.png';
 import Good from '../../assets/images/good.png';
+import NoIdea from '../../assets/images/no-idea.png';
 import classes from './Status.module.scss';
 
 const Status = () => {
@@ -32,6 +33,9 @@ const Status = () => {
         setStatus('good');
         setImage(Good);
       }
+    } else if (monthlyTotalSpending && !budget) {
+      setStatus('no budget yet');
+      setImage(NoIdea);
     }
   }, [monthlyTotalSpending, budget]);
 

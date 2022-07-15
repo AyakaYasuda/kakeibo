@@ -1,14 +1,18 @@
 @import '../mixin.scss';
 
-.container {
+.wrapper {
   @include section-container-wide;
+  @include center-col;
+}
+
+.container {
   @include center-col;
 
   @include media-md {
     @include center-row;
     align-items: flex-start;
     margin-top: 6rem;
-    height: 75vh;
+    height: 70vh;
   }
 
   svg {

@@ -1,0 +1,51 @@
+@import '../../mixin.scss';
+
+.container {
+  @include center-col;
+  background: rgba(0, 129, 167, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  padding: 8rem 2rem 4rem;
+  width: 85vw;
+  margin: 6rem auto 0rem;
+  position: relative;
+
+  @include media-md {
+    width: 60%;
+    padding: 3rem 4rem;
+    @include center-row;
+  }
+
+  img {
+    object-fit: contain;
+    width: 15rem;
+    height: auto;
+    position: absolute;
+    top: -8rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @include media-md {
+      top: 0;
+      left: -5rem;
+      transform: translateX(0);
+    }
+  }
+}
+
+.message {
+  h2 {
+    padding: 1rem;
+  }
+
+  a {
+    letter-spacing: 0.2rem;
+    text-transform: uppercase;
+    background-color: $secondary-color;
+  }
+
+  a:hover {
+    @include hover-effect;
+    background-color: $primary-color;
+  }
+}
