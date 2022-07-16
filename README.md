@@ -2,20 +2,20 @@
 
 ## ** ABOUT **
 
-This is an expense tracker app that offers a dashboard where expenses are categorized and visualized in a pie chart.
+This is an expense tracker app that offers a dashboard where expenses are categorized and visualized in a pie chart.  
 Users can create their personal monthly budget and make sure if they're on the track to save some money or not.  
 Although managing expenses might be bothersome, Memoji that you can find all over the app would make it enjoyable and this app helps you to make it part of your routine!
 
 ### The aim of this project
 
-One of the major aims of this project was to deploy a MERN stack app and learn more about how each stack works in a practical way.
-Through this project, I realized the advantage of storing JSON data in a database and became more comfortable in develop REST APIs interacting with NoSQL databases.
+One of the major aims of this project was to deploy a MERN stack app and learn more about how each stack works in a practical way.  
+Through this project, I realized the advantage of storing JSON data in a database and became more comfortable in develop REST APIs interacting with NoSQL databases.  
 Besides I put effort on implementing more detail features such as authentication, error handling, form validations and so on.
 
 ### Some of the challenges I faced through this project
 
-I struggled with grabbing and managing the status of HTTP requests.
-In order to show error modals or loading spinners, I stored the errors using Redux and make them accessible from any other page.
+I struggled with grabbing and managing the status of HTTP requests.  
+In order to show error modals or loading spinners, I stored the errors using Redux and make them accessible from any other page.  
 Logging states in console and monitoring React Developer Tools on every render was really effective for me to solve the issues.
 
 ### The technologies I used for this app
