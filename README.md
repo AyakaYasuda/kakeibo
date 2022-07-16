@@ -1,4 +1,4 @@
-# FLASH
+# kakeibo
 
 ## ** ABOUT **
 
@@ -32,7 +32,7 @@ Logging states in console and monitoring React Developer Tools on every render w
 
 ## ** Preview **
 
-### [FLASH](https://kakeibo-a9b29.web.app/)
+### [kakeibo](https://kakeibo-a9b29.web.app/)
 
 My Page
 <img width="1440" alt="my page" src="https://user-images.githubusercontent.com/60804249/179321987-ea9a4a5b-6bfb-462d-be47-6f0a96f71ac6.png">
