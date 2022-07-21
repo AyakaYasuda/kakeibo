@@ -3,6 +3,10 @@
 .wrapper {
   @include section-container-wide;
   @include center-col;
+
+  @include media-md {
+    height: 80vh;
+  }
 }
 
 .container {
@@ -12,7 +16,6 @@
     @include center-row;
     align-items: flex-start;
     margin-top: 6rem;
-    height: 70vh;
   }
 
   svg {
