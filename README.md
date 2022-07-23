@@ -35,7 +35,7 @@ Monthly Spending List
 <img width="1440" alt="monthly spending list" src="https://user-images.githubusercontent.com/60804249/179322318-1e1669df-758a-43df-84c2-a3d698832fea.png">
 
 New Spending Form
-<img width="1440" alt="new spending form" src="https://user-images.githubusercontent.com/60804249/179322363-22b6d294-d8f4-4be0-89ac-00434c451f7d.png">
+<img width="1440" alt="new spending form" src="https://user-images.githubusercontent.com/60804249/180625010-dcd004f0-d846-4bb6-93bd-18696d92d711.png">
 
 Budget Settings Page
-<img width="1440" alt="budget settings page" src="https://user-images.githubusercontent.com/60804249/179322430-d5a97b20-38fe-4fa3-bbcc-9576b6f08530.png">
+<img width="1440" alt="budget settings page" src="https://user-images.githubusercontent.com/60804249/180625014-64b1059f-4209-48b0-bb34-d289be8540e6.png">
