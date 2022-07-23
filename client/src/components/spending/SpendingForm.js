@@ -159,8 +159,8 @@ const SpendingForm = ({ preloadedValues, type, spendingId }) => {
 
       <div className="spacer-sm" />
       <div className={classes['form-buttons']}>
-        <Button type="submit">Save</Button>
         <Button onClick={clearFormHandler}>Cancel</Button>
+        <Button type="submit">Save</Button>
       </div>
     </form>
   );
