@@ -71,18 +71,18 @@ const BudgetSettingForm = ({ setIsEditing }) => {
         </p>
       )}
       <div className={classes['form-buttons']}>
+        <Button size="small" onClick={() => setIsEditing(false)}>
+          Cancel
+        </Button>
         {preloadedValue ? (
           <Button type="submit" size="small">
             Update
           </Button>
         ) : (
           <Button type="submit" size="small">
-            submit
+            Submit
           </Button>
         )}
-        <Button size="small" onClick={() => setIsEditing(false)}>
-          Cancel
-        </Button>
       </div>
     </form>
   );
