@@ -38,4 +38,4 @@ New Spending Form
 <img width="1440" alt="new spending form" src="https://user-images.githubusercontent.com/60804249/180625010-dcd004f0-d846-4bb6-93bd-18696d92d711.png">
 
 Budget Settings Page
-<img width="1440" alt="budget settings page" src="https://user-images.githubusercontent.com/60804249/180625014-64b1059f-4209-48b0-bb34-d289be8540e6.png">
+<img width="1440" alt="budget settings page" src="https://user-images.githubusercontent.com/60804249/180640013-7ad043d0-e870-4103-ada5-2ec32571a37b.png">
