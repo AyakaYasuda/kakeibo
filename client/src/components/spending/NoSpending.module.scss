@@ -41,9 +41,22 @@
   a {
     letter-spacing: 0.2rem;
     text-transform: uppercase;
+    margin: 0.5rem 0;
+
+    @include media-md {
+      margin: 0rem 0.5rem;
+    }
   }
 
   a:hover {
     @include hover-effect;
+  }
+
+  .buttons {
+    @include center-col;
+
+    @include media-md {
+      @include center-row;
+    }
   }
 }
