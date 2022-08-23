@@ -9,9 +9,12 @@ const NoSpending = () => {
     <div className={classes.container}>
       <img src={Shocked} alt="shocked" />
       <div className={classes.message}>
-        <h2>No spending recorded yet!</h2>
+        <h2>No spending recorded yet this month!</h2>
         <Button size="small" to="/spending/new">
           Record Spending
+        </Button>
+        <Button size="small" to="/spending">
+          Spending History
         </Button>
       </div>
     </div>

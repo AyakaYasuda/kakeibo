@@ -37,11 +37,16 @@ const useFilter = (filterValue) => {
   // get monthly total amount
   useEffect(() => {
     if (filteredSpendingList && filteredSpendingList.length !== 0) {
+      console.log(filteredSpendingList);
       const monthlyTotalAmount = filteredSpendingList
         .map((spending) => spending.amount)
         .reduce((prev, curr) => prev + curr, 0);
 
       setMonthlyTotalSpending(monthlyTotalAmount);
+    }
+
+    if (filteredSpendingList.length === 0) {
+      setMonthlyTotalSpending(0);
     }
   }, [filteredSpendingList]);
 

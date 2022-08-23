@@ -22,27 +22,25 @@ const MonthlySpendingList = () => {
     return <LoadingSpinner />;
   }
 
-  if (spendingList.length === 0) {
-    return <NoSpending />;
-  }
-
   return (
     <div className={classes['container']}>
-      {monthlyTotalSpending && (
-        <div className={classes['total-spending']}>
-          <h2>Total Spending as of {filterValue} </h2>
-          <h1>${Number(monthlyTotalSpending?.toFixed(2)).toLocaleString()}</h1>
-        </div>
-      )}
+      <div className={classes['total-spending']}>
+        <h2>Total Spending as of {filterValue} </h2>
+        <h1>${Number(monthlyTotalSpending?.toFixed(2)).toLocaleString()}</h1>
+      </div>
+
       <MonthFilter
         value={filterValue}
         onChange={(e) => setFilterValue(e.target.value)}
       />
       <div className={classes['spending-list']}>
-        {filteredSpendingList.length > 0 &&
+        {filteredSpendingList.length > 0 ? (
           filteredSpendingList.map((spending) => (
             <SpendingCard data={spending} key={spending.id} />
-          ))}
+          ))
+        ) : (
+          <NoSpending />
+        )}
       </div>
     </div>
   );

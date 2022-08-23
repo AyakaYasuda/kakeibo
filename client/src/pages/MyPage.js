@@ -30,6 +30,8 @@ const MyPage = () => {
   const { filteredSpendingList, monthlyTotalSpending } =
     useFilter(currentYearAndMonth);
 
+  const spendingList = useSelector((state) => state.spending.spendingList);
+
   useEffect(() => {
     if (uid) {
       dispatch(getBudgetById(uid));
@@ -58,12 +60,14 @@ const MyPage = () => {
   };
 
   let content;
-  if (!monthlyTotalSpending) {
+
+  console.log(monthlyTotalSpending, filteredSpendingList);
+
+  if (!monthlyTotalSpending || filteredSpendingList.length === 0) {
     content = <LoadingSpinner />;
   }
 
-  if (monthlyTotalSpending && monthlyTotalSpending.length === 0) {
-    console.log('run');
+  if (filteredSpendingList.length === 0) {
     content = (
       <>
         {!budget && <NoBudget />}
@@ -72,7 +76,7 @@ const MyPage = () => {
     );
   }
 
-  if (monthlyTotalSpending && monthlyTotalSpending.length !== 0) {
+  if (filteredSpendingList.length !== 0) {
     content = (
       <>
         {!budget && <NoBudget />}
