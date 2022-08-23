@@ -61,6 +61,7 @@ const Auth = () => {
     };
     dispatch(signup(userState));
     signupFormReset();
+    setIsLoginMode(true);
   };
 
   const loginHandler = (data) => {

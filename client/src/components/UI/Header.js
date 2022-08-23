@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../reducks/users/operations';
+import { resetError as resetSpendingError } from '../../reducks/spending/operations';
+import { resetError as resetUserError } from '../../reducks/users/operations';
 
 import Button from './Button';
 import classes from './Header.module.scss';
@@ -11,12 +13,14 @@ const Header = () => {
   const { isLoggedIn } = useSelector((state) => state.users);
 
   const logoutHandler = () => {
+    dispatch(resetSpendingError());
+    dispatch(resetUserError());
     dispatch(logout());
   };
 
   return (
     <section className={classes.header}>
-      <div className={classes["header-container"]}>
+      <div className={classes['header-container']}>
         <Link to="/">kakeibo</Link>
         {isLoggedIn && (
           <div className={classes.menu}>
