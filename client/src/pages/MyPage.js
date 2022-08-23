@@ -30,8 +30,6 @@ const MyPage = () => {
   const { filteredSpendingList, monthlyTotalSpending } =
     useFilter(currentYearAndMonth);
 
-  const spendingList = useSelector((state) => state.spending.spendingList);
-
   useEffect(() => {
     if (uid) {
       dispatch(getBudgetById(uid));
@@ -60,8 +58,6 @@ const MyPage = () => {
   };
 
   let content;
-
-  console.log(monthlyTotalSpending, filteredSpendingList);
 
   if (!monthlyTotalSpending || filteredSpendingList.length === 0) {
     content = <LoadingSpinner />;
